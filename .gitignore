@@ -1,0 +1,7 @@
+node_modules/
+coverage/
+artifacts/
+*.log
+.env
+.DS_Store
+games/*/data/*.sqlite*

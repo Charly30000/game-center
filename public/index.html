@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf7ef">
+  <title>Game Center · Elige un juego</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="/center.css">
+</head>
+<body>
+  <header class="site-header">
+    <span class="brand"><span class="brand-icon" aria-hidden="true">✣</span>gamecenter.</span>
+    <button class="install-link" id="install">Instalar aplicación ↗</button>
+  </header>
+  <main>
+    <div class="center-heading"><span class="eyebrow">Hora de compartir sofá</span><h1>¿A qué jugamos hoy?</h1><p>Una tele, vuestros móviles y una buena partida.</p></div>
+    <div id="catalog" class="catalog" aria-live="polite"><p class="muted">Cargando juegos…</p></div>
+    <p class="center-note"><span aria-hidden="true">✦</span> Elige tu juego y reúne a los tuyos <span aria-hidden="true">✦</span></p>
+  </main>
+  <div id="notice" role="status"></div>
+  <script type="module" src="/center.js"></script>
+</body>
+</html>
