@@ -38,13 +38,9 @@ Los contenedores dinámicos no pertenecen a los servicios de Compose y `docker c
 
 ## Añadir otro juego
 
-1. Crear `games/<id>/` con `server.mjs`, `domain/`, `public/`, `data/`, pruebas y README propios.
-2. Implementar `/health` y WebSocket `/socket`. Escuchar en `0.0.0.0` usando el puerto configurado en el contenedor.
-3. Añadir al registro `server/catalog.mjs` el identificador, textos, puerto y comando fijo. Nunca aceptar comandos o imágenes enviados desde el navegador.
-4. Construir de nuevo la imagen con Compose. El contenedor del nuevo juego no se creará hasta que alguien entre.
-5. Si necesita persistencia, añadir un volumen exclusivo y SQLite dentro de su carpeta de datos; actualmente los juegos son de solo lectura y habrá que declarar explícitamente ese volumen y su permiso.
+Seguir la [guía de creación de juegos](new-game.md) antes de implementar: recoge las consultas obligatorias sobre salas y avatares, el flujo TV/Jugador, participantes y nombres únicos, reglas autoritativas, reconexión, aislamiento y pruebas. La guía concentra los primeros pasos para evitar instrucciones duplicadas.
 
-Por ahora el diseño gráfico del catálogo está especializado en Bingo. Al añadir otro juego, incorporar su portada y metadatos visuales al componente del catálogo.
+El registro en `server/catalog.mjs`, `/health`, WebSocket `/socket` y el ciclo de vida Docker descrito arriba integran el nuevo juego con el centro. Sus sistemas y recursos pertenecen a `games/<id>/`: no puede importar código específico ni recursos de otro juego. Las soluciones tomadas como referencia se copian y adaptan localmente. La portada y los metadatos visuales del catálogo deben corresponder al nuevo juego; el diseño actual está especializado en Bingo.
 
 ## Dependencias
 

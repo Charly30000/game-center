@@ -39,8 +39,14 @@ test('la extracción dura cinco segundos y publica el mismo reloj para todas las
 });
 test('nombre único sin diferencias de mayúsculas, entre 3 y 40 caracteres', () => {
   const { game } = setup();
-  for (const name of ['a', 'x'.repeat(41), 'Juga\u0000dor']) assert.throws(() => game.action('p0', 'profile', { name, avatar: 0 }));
+  for (const name of ['a', '   ', ' Al ', '\tAl\u00a0', 'x'.repeat(41), 'Juga\u0000dor']) assert.throws(() => game.action('p0', 'profile', { name, avatar: 0 }));
   assert.throws(() => game.action('p0', 'profile', { name: ' jugador  1 ', avatar: 1 }));
+  game.action('p0', 'profile', { name: '  Ana\t', avatar: 1 });
+  assert.equal(game.view('p0').me.name, 'Ana');
+  assert.equal(game.view('tv').players.find(player => player.id === game.view('p0').me.id).name, 'Ana');
+  assert.throws(() => game.action('p1', 'profile', { name: '\u00a0 ANA ', avatar: 1 }), /ya está en uso/);
+  game.action('p0', 'profile', { name: `  ${'x'.repeat(40)}  `, avatar: 1 });
+  assert.equal(game.view('p0').me.name, 'x'.repeat(40));
   game.action('p0', 'profile', { name: '<María>', avatar: 1 });
   assert.equal(game.view('p0').me.name, '<María>');
 });

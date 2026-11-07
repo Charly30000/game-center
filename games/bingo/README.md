@@ -18,7 +18,7 @@ Reglas contrastadas con [Tombola: bingo de 90 bolas](https://www.tombola.co.uk/b
 
 `lobby → drawing → marking → drawing … → results`
 
-En el lobby los jugadores entran como borradores. El avatar es aleatorio y puede repetirse; el nombre es obligatorio, normalizado, de 3 a 40 caracteres y único sin distinguir mayúsculas. La televisión ve una tarjeta pendiente hasta confirmar. Las reglas son compartidas por todas las televisiones. Se inicia con al menos un jugador confirmado y conectado, previa confirmación visual.
+En el lobby los jugadores entran como borradores. El avatar es aleatorio y puede repetirse; el nombre es obligatorio, de 3 a 40 caracteres y único sin distinguir mayúsculas. Formulario y servidor normalizan Unicode, aplican `.trim()` y unifican los espacios internos antes de comprobar longitud y duplicados. `" Ana "` se guarda como `"Ana"`; `" Al "` se rechaza. La televisión ve una tarjeta pendiente hasta confirmar. Las reglas son compartidas por todas las televisiones. Se inicia con al menos un jugador confirmado y conectado, previa confirmación visual.
 
 El servidor reparte los cartones y mezcla 90 bolas usando aleatoriedad criptográfica. Cada extracción dura cinco segundos; los cartones están bloqueados durante ese intervalo. Al revelar la bola se habilitan los números extraídos que faltan por marcar, incluso si pertenecen a turnos anteriores a una desconexión.
 

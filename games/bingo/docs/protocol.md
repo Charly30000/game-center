@@ -13,7 +13,7 @@ El navegador utiliza `/ws/bingo`, en el mismo origen que la página. Game Center
 | type | payload | Restricción |
 | --- | --- | --- |
 | `hello` | `role: guest / tv / player`, opcional `token` o `claimPlayerId` y `force` | Recuperar un usuario activo exige `force: true` tras confirmación en UI |
-| `profile` | `name`, `avatar` (0–19) | Jugador en lobby |
+| `profile` | `name` (3–40 caracteres después de normalizar y aplicar `.trim()`), `avatar` (0–19) | Jugador en lobby |
 | `settings` | `cardsPerPlayer` (1–5), `effects` (boolean) | TV en lobby |
 | `start` | Objeto vacío | TV, al menos un confirmado online |
 | `mark` | `roundId`, `turn`, `card` (índice), `number` | Jugador participante en fase marking; número del cartón que ya salió |

@@ -202,7 +202,13 @@ function bind() {
   app.querySelector('#edit-profile')?.addEventListener('click',() => { local.editing = true; render(); });
   app.querySelector('#player-name')?.addEventListener('input',event => { local.name = event.target.value; });
   app.querySelectorAll('[data-avatar]').forEach(button => button.onclick = () => { document.querySelector('#player-name')?.blur(); local.avatar = Number(button.dataset.avatar); updateProfileSelection(); });
-  app.querySelector('#profile')?.addEventListener('submit',async event => { event.preventDefault(); if (await action('profile',{name:local.name,avatar:local.avatar})) { local.editing = false; render(); } });
+  app.querySelector('#profile')?.addEventListener('submit',async event => {
+    event.preventDefault();
+    local.name = local.name.normalize('NFKC').trim().replace(/\s+/gu,' ');
+    app.querySelector('#player-name').value = local.name;
+    if ([...local.name].length < 3 || [...local.name].length > 40) { toast('El nombre debe tener entre 3 y 40 caracteres.'); return; }
+    if (await action('profile',{name:local.name,avatar:local.avatar})) { local.editing = false; render(); }
+  });
   app.querySelectorAll('[data-card]').forEach(button => button.onclick = () => { local.selectedCard = Number(button.dataset.card); render(); });
   app.querySelectorAll('[data-number]').forEach(button => button.onclick = () => action('mark',{card:local.selectedCard,number:Number(button.dataset.number)}));
   app.querySelector('#continue')?.addEventListener('click',() => action('continue'));

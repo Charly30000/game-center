@@ -23,6 +23,7 @@ Solo arranca el centro. Al pulsar **Jugar**, este crea el contenedor independien
 ## Documentación
 
 - [Arquitectura, Docker y cómo añadir juegos](docs/architecture.md).
+- [Crear un juego: decisiones iniciales, pantallas y requisitos técnicos](docs/new-game.md).
 - [Operación, comandos y diagnóstico](docs/operations.md).
 - [Navegación con mandos de televisión](docs/remote-controls.md).
 - [Bingo: reglas, estados, recuperación y decisiones](games/bingo/README.md).
