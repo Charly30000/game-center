@@ -6,6 +6,8 @@ const root = new URL('../', import.meta.url);
 const game = new URL('games/bingo/', root);
 const assets = new URL('public/assets/', game);
 await Promise.all([mkdir(new URL('avatars/', assets), { recursive: true }), mkdir(new URL('data/', game), { recursive: true }), mkdir(new URL('public/assets/', root), { recursive: true })]);
+await mkdir(new URL('public/shared/vendor/', root), { recursive: true });
+await writeFile(new URL('public/shared/vendor/qrcode.mjs', root), await readFile(new URL('node_modules/qrcode-generator/dist/qrcode.mjs', root)));
 
 // Los originales no son públicos. Solo se sirven los recortes WebP individuales.
 const avatarSource = await readFile(new URL('art/source/avatars.png', game));

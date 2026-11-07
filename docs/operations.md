@@ -5,13 +5,15 @@ Todos los comandos siguientes se lanzan desde la raíz del proyecto. Las instala
 ## Uso diario
 
 ```powershell
-docker compose up -d --build
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1
 docker compose ps
 docker compose logs --tail 100
 docker ps --filter label=app.gamecenter.owner=gamecenter-local
 ```
 
 La dirección local es `http://localhost:3000`. Los demás dispositivos usan la IP o el nombre accesible del ordenador en la LAN. La red Docker es `gamecenter-internal`; solo el centro publica `3000:3000`.
+
+En Linux, el comando equivalente es `sh ./scripts/start.sh`, con `ip` (iproute2) y Docker Compose disponibles. El script de arranque detecta la dirección IPv4 del anfitrión antes de iniciar Compose, para mostrar el QR y la URL correctos incluso al entrar por localhost. Para actualizar solo esa dirección, usar el mismo comando con `-PrepareOnly` en Windows o `--prepare-only` en Linux y recargar la página. No cambia variables del sistema ni instala herramientas en Windows. Detalles y límites en [conexión por QR](connection.md).
 
 Al actualizar código, reconstruir cambia la imagen del centro. Un bingo ya iniciado conserva su contenedor e imagen para no interrumpir una partida; para actualizarlo también, termina primero esa partida y retira su contenedor con el comando de apagado de juegos. El siguiente acceso lo creará con la imagen nueva.
 

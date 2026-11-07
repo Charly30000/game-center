@@ -1,4 +1,7 @@
 import { installRemoteNavigation } from '/shared/remote-navigation.js';
+import { mountConnection } from './connection.js';
+
+mountConnection();
 
 const catalog = document.querySelector('#catalog');
 installRemoteNavigation({ preferred: () => catalog.querySelector('button') });

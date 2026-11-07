@@ -1,6 +1,8 @@
 node_modules/
 coverage/
 artifacts/
+runtime/
+public/shared/vendor/
 *.blend[0-9]*
 *.log
 .env

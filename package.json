@@ -1,10 +1,13 @@
 {
   "name": "gamecenter",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "private": true,
   "type": "module",
   "description": "Juegos en familia, una televisión y un móvil por jugador",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "prepare:assets": "node scripts/prepare-assets.mjs",
     "test": "node --test games/bingo/tests/*.test.mjs tests/*.test.mjs",
@@ -13,6 +16,7 @@
   "dependencies": {
     "@fontsource/fredoka": "5.2.8",
     "@fontsource/space-mono": "5.2.9",
+    "qrcode-generator": "2.0.4",
     "sharp": "0.34.5",
     "three": "0.180.0",
     "ws": "8.22.1"

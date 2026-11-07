@@ -1,4 +1,4 @@
-const CACHE = 'gamecenter-v4';
+const CACHE = 'gamecenter-v5';
 const SHELL = ['/', '/center.css', '/center.js', '/shared/base.css', '/shared/remote-navigation.js', '/icon.svg'];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL))); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });

@@ -18,7 +18,16 @@
   </header>
   <main>
     <div class="center-heading"><span class="eyebrow">Hora de compartir sofá</span><h1>¿A qué jugamos hoy?</h1><p>Una tele, vuestros móviles y una buena partida.</p></div>
-    <div id="catalog" class="catalog" aria-live="polite"><p class="muted">Cargando juegos…</p></div>
+    <div class="center-content">
+      <aside class="join-panel" aria-labelledby="join-title">
+        <h2 id="join-title">Únete desde tu móvil</h2>
+        <p>Conéctate a la misma Wi-Fi y escanea</p>
+        <div id="join-code" class="join-code" hidden></div>
+        <a id="join-url" class="join-url" hidden></a>
+        <p id="join-status" class="join-status" role="status">Preparando enlace…</p>
+      </aside>
+      <div id="catalog" class="catalog" role="region" aria-label="Juegos disponibles" tabindex="0" aria-live="polite"><p class="muted">Cargando juegos…</p></div>
+    </div>
     <p class="center-note"><span aria-hidden="true">✦</span> Elige tu juego y reúne a los tuyos <span aria-hidden="true">✦</span></p>
   </main>
   <div id="notice" role="status"></div>

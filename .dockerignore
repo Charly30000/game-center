@@ -4,6 +4,8 @@ node_modules
 .agents
 coverage
 artifacts
+runtime
+public/shared/vendor
 games/*/art/blender
 *.blend[0-9]*
 *.log

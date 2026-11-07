@@ -21,6 +21,7 @@ flowchart LR
 - `games/bingo/art/`: originales y documentación artística.
 - `public/`: catálogo general, PWA y utilidades compartidas mínimas.
 - `scripts/`: preparación reproducible de recursos y operaciones explícitas.
+- `runtime/`: metadatos locales generados de la red del anfitrión, montados en solo lectura para el QR; no son datos de los juegos y no se incluyen en Git ni en la imagen. Véase [conexión por QR](connection.md).
 
 Un único Dockerfile genera una imagen compartida e inmutable. Compartir las capas ahorra disco; **el centro y cada juego se ejecutan en contenedores distintos**, con comandos y memoria independientes. No se utiliza Docker-in-Docker: el centro se comunica con Docker Desktop a través de `/var/run/docker.sock`.
 
