@@ -26,7 +26,7 @@ El navegador utiliza `/ws/bingo`, en el mismo origen que la página. Game Center
 
 ## Mensajes del servidor
 
-- `state`: fotografía personalizada después de una acción o cambio de conexión. Incluye fase, reglas, bolas públicas, participantes y ganadores. `me` contiene exclusivamente los cartones y marcas del receptor; para televisión/visitantes es `null`. Nunca se envían tokens ajenos.
+- `state`: fotografía personalizada después de una acción o cambio de conexión. Incluye fase, reglas, bolas públicas, participantes y ganadores; `drawDurationMs` indica la duración de extracción (5.000 ms) y `drawEndsAt` su fin autoritativo, o `null` fuera de extracción. `me` contiene exclusivamente los cartones y marcas del receptor; para televisión/visitantes es `null`. Nunca se envían tokens ajenos.
 - `ack`: `requestId` y `result`. Un `hello` de jugador devuelve `token` y `playerId`.
 - `error`: `requestId`, `message`, `code` y, si procede, `details`. Códigos: `SESSION_EXPIRED`, `CONFIRM_TAKEOVER`, `GAME_STARTED`, `STALE_TURN`, `NOT_CONNECTED`, `INVALID_ACTION` e `INTERNAL`.
 - `revoked`: el jugador se ha recuperado en otro dispositivo; detener reconexiones automáticas y cerrar esa pantalla de juego.

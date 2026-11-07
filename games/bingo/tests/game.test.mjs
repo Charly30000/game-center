@@ -27,6 +27,16 @@ test('la sala empieza con 3 cartones y no permite iniciar sin jugadores', () => 
   assert.throws(() => game.action('tv', 'settings', { cardsPerPlayer: 6 }));
   assert.throws(() => game.action('tv', 'settings', { cardsPerPlayer: 0 }));
 });
+test('la extracción dura cinco segundos y publica el mismo reloj para todas las pantallas',()=>{
+  let scheduled;
+  const game=new BingoGame({tickets:catalog,schedule:(callback,ms)=>{scheduled={callback,ms};return 1;}});
+  game.connect('tv',{role:'tv'});game.connect('p',{role:'player'});game.action('p','profile',{name:'Andrés',avatar:0});
+  game.action('tv','start');
+  assert.equal(scheduled.ms,5000);assert.equal(game.view('tv').drawDurationMs,5000);
+  assert.equal(game.view('tv').drawEndsAt,game.view('p').drawEndsAt);
+  assert.equal(game.phase,'drawing');assert.equal(game.current,null);
+  scheduled.callback();assert.equal(game.phase,'marking');assert.ok(game.current>=1&&game.current<=90);
+});
 test('nombre único sin diferencias de mayúsculas, entre 3 y 40 caracteres', () => {
   const { game } = setup();
   for (const name of ['a', 'x'.repeat(41), 'Juga\u0000dor']) assert.throws(() => game.action('p0', 'profile', { name, avatar: 0 }));

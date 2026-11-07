@@ -14,6 +14,7 @@ const local = { view: 'choose', selectedCard: 0, name: '', avatar: 0, playerId: 
 const scroller = createCardScroller();
 let state, status = 'connecting', revoked = false, modal, modalFocus, toastTimer;
 let renderer, rendererModule, sceneGeneration = 0, noNumberNotice, celebratedRound;
+let rendererLoad, loadingSlot;
 let pointerActive = false, pendingRender = false;
 let appliedOrientation = null, profilePlayerId = null;
 const fitViewport = installViewportLayout(app);
@@ -236,14 +237,22 @@ document.addEventListener('keydown',event => {
 async function updateScene() {
   const slot = document.querySelector('#presenter-stage');
   const enabled = slot && state.settings.effects && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!enabled) { sceneGeneration++; renderer?.dispose(); renderer = null; return; }
-  if (renderer) { renderer.update(state.phase,state.drawEndsAt); return; }
+  if (!enabled) { sceneGeneration++; renderer?.dispose(); renderer = null; rendererLoad = null; loadingSlot = null; return; }
+  if (renderer) { renderer.update(state); return; }
+  if (rendererLoad && loadingSlot === slot) return;
   const generation = ++sceneGeneration;
-  try {
-    rendererModule ||= import('./presenter.js'); const module = await rendererModule;
-    if (generation !== sceneGeneration || !slot.isConnected) return;
-    renderer = module.mountPresenter(slot); renderer.update(state.phase,state.drawEndsAt);
-  } catch { /* WebGL no disponible: la ilustración sigue siendo funcional. */ }
+  loadingSlot = slot;
+  const pending = (async () => {
+    try {
+      rendererModule ||= import('./presenter.js'); const module = await rendererModule;
+      if (generation !== sceneGeneration || !slot.isConnected) return;
+      const mounted = await module.mountPresenter(slot);
+      if (generation !== sceneGeneration || !slot.isConnected) { mounted.dispose(); return; }
+      renderer = mounted; renderer.update(state);
+    } catch { /* Si la carga o WebGL falla, permanece la ilustración estática. */ }
+    finally { if (rendererLoad === pending) { rendererLoad = null; loadingSlot = null; } }
+  })();
+  rendererLoad = pending;
 }
-window.addEventListener('pagehide',() => { scroller.stop(); renderer?.dispose(); net.stop(); });
+window.addEventListener('pagehide',() => { sceneGeneration++; scroller.stop(); renderer?.dispose(); net.stop(); });
 window.addEventListener('pageshow',event => { if (event.persisted) location.reload(); });

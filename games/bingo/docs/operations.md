@@ -37,6 +37,26 @@ docker stop gamecenter-review-ui gamecenter-review-bingo
 docker rm gamecenter-review-ui gamecenter-review-bingo
 ```
 
+## Revisar el presentador Blender
+
+El [modelo de Blender](blender-character.md) utiliza pruebas de Three.js sin GPU incluidas en `npm test`. Para repetirlas con la imagen actualizada:
+
+```powershell
+docker compose build
+docker run --rm --read-only --network none --cpus=0.5 --memory=384m gamecenter-runtime:local npm test
+```
+
+La prueba WebGL específica no necesita una sala ni modifica partidas reales. Utiliza una pasarela interna sin puertos públicos y un único navegador con límites de recursos. Reconstruir primero la imagen del navegador para incluir `presenter.mjs`:
+
+```powershell
+docker build -f tests/browser/Dockerfile -t gamecenter-browser-tests:local .
+docker run --rm -d --name gamecenter-model-review --network gamecenter-internal --cpus=0.25 --memory=128m gamecenter-runtime:local node tests/browser/preview-server.mjs
+docker run --rm --network gamecenter-internal --cpus=1 --memory=768m --shm-size=128m --mount "type=bind,source=$((Get-Location).Path)\artifacts,target=/artifacts" gamecenter-browser-tests:local node presenter.mjs
+docker stop gamecenter-model-review
+```
+
+Crear previamente `artifacts` si no existe. El último comando retira solo el servidor temporal. Las capturas pueden tardar varios minutos al renderizar mediante software; no ejecutar varias pruebas de navegador a la vez. Para revisar manualmente los clips, abrir `/review/bingo-character/` en la pasarela de pruebas. La página y su módulo viven en `tests/browser/fixtures/` y no están publicados por el juego. Véase [la documentación del presentador](blender-character.md).
+
 ## Regenerar recursos o ampliar el catálogo
 
 Las imágenes finales y el JSON están incluidos en el proyecto. La construcción vuelve a preparar las imágenes para hacerla reproducible. Si falta el JSON, crea por defecto 10.000 cartones.

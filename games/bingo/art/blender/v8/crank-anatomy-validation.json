@@ -1,0 +1,24 @@
+{
+  "samples": 301,
+  "character_root": [
+    0.47999998927116394,
+    0.2199999988079071,
+    0.0
+  ],
+  "min_hand_ahead_m": 0.02527887700125575,
+  "min_hand_across_dot": 0.9999982714653015,
+  "min_forearm_forward": 0.2057366967201233,
+  "elbow_flex_deg": [
+    68.0605264752376,
+    137.2783055619288
+  ],
+  "min_elbow_below_m": 0.0651317834854126,
+  "hand_pitch_deg": [
+    -0.5291345785523273,
+    78.127373820346
+  ],
+  "min_elbow_hinge_sign": 0.22316958010196686,
+  "hand_pitch_span_deg": 78.65650839889832,
+  "pitch_loop_error_deg": 9.033371529021395e-06,
+  "ok": true
+}

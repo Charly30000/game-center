@@ -8,12 +8,15 @@ const json=(response,data)=>{response.writeHead(200,{'Content-Type':'application
 const server=http.createServer(async(request,response)=>{
   const path=new URL(request.url,'http://preview').pathname;
   if(path==='/health')return json(response,{ok:true});
+  if(path==='/review/bingo-character/'||path==='/review/bingo-character')return serveFile(response,'tests/browser/fixtures','bingo-character-preview.html');
+  if(path==='/review/bingo-character/preview.js')return serveFile(response,'tests/browser/fixtures','bingo-character-preview.js');
   if(path==='/api/games')return json(response,games.map(({command,port,...game})=>game));
   if(path==='/api/games/bingo/launch')return json(response,{url:'/games/bingo/'});
   if(path.startsWith('/games/bingo/'))return serveFile(response,'games/bingo/public',path.slice(13)||'index.html');
   if(path.startsWith('/shared/'))return serveFile(response,'public/shared',path.slice(8));
   if(path.startsWith('/fonts/fredoka/'))return serveFile(response,'node_modules/@fontsource/fredoka/files',path.slice(15));
   if(path.startsWith('/fonts/space-mono/'))return serveFile(response,'node_modules/@fontsource/space-mono/files',path.slice(18));
+  if(path.startsWith('/vendor/three/addons/'))return serveFile(response,'node_modules/three/examples/jsm',path.slice('/vendor/three/addons/'.length));
   if(path.startsWith('/vendor/three/'))return serveFile(response,'node_modules/three/build',path.slice(14));
   return serveFile(response,'public',path==='/'?'index.html':path.slice(1));
 });

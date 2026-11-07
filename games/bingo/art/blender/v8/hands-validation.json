@@ -1,0 +1,67 @@
+{
+  "rest": {
+    "L": {
+      "proximal_flex_deg": [
+        17.997763613942453,
+        22.00019470341469,
+        25.999108245464367,
+        29.99423274007198
+      ],
+      "tip_palmward_z_m": [
+        -0.01139462273567915,
+        -0.023906808346509933,
+        -0.028466422110795975,
+        -0.02354401908814907
+      ]
+    },
+    "R": {
+      "proximal_flex_deg": [
+        17.997763613942453,
+        22.00019470341469,
+        25.999108245464367,
+        29.99423274007198
+      ],
+      "tip_palmward_z_m": [
+        -0.011394606903195381,
+        -0.02390679530799389,
+        -0.02846643514931202,
+        -0.02354396879673004
+      ]
+    }
+  },
+  "clips": {
+    "Celebrate": {
+      "max_frame_rotation_deg": 3.0975313428489795,
+      "end_start_rotation_deg": 0.0
+    },
+    "DropBall": {
+      "max_frame_rotation_deg": 3.1563597621702995,
+      "end_start_rotation_deg": 12.806373321115775
+    },
+    "Idle": {
+      "max_frame_rotation_deg": 0.3916705545281963,
+      "end_start_rotation_deg": 0.0
+    },
+    "PickBall": {
+      "max_frame_rotation_deg": 3.452474929673386,
+      "end_start_rotation_deg": 12.806311849413245
+    },
+    "ShowBall": {
+      "max_frame_rotation_deg": 0.8749095599164926,
+      "end_start_rotation_deg": 1.4998201089453553
+    },
+    "SpinDrum": {
+      "max_frame_rotation_deg": 2.7150772481516428,
+      "end_start_rotation_deg": 0.0
+    },
+    "Talk": {
+      "max_frame_rotation_deg": 2.1573050040647725,
+      "end_start_rotation_deg": 0.0
+    },
+    "Wave": {
+      "max_frame_rotation_deg": 1.24236231804066,
+      "end_start_rotation_deg": 0.0
+    }
+  },
+  "ok": true
+}

@@ -8,7 +8,7 @@ const requireThat = (condition, message, code, details) => { if (!condition) thr
 const normalizeName = value => value.normalize('NFKC').trim().replace(/\s+/gu, ' ');
 
 export class BingoGame {
-  constructor({ tickets, notify = () => {}, revoke = () => {}, schedule = setTimeout, unschedule = clearTimeout, drawMs = 1400, random = () => randomInt(0, 0x100000000) / 0x100000000 } = {}) {
+  constructor({ tickets, notify = () => {}, revoke = () => {}, schedule = setTimeout, unschedule = clearTimeout, drawMs = 5000, random = () => randomInt(0, 0x100000000) / 0x100000000 } = {}) {
     requireThat(Array.isArray(tickets) && tickets.length >= 5 && tickets.every(validateTicket), 'Catálogo de cartones inválido.');
     requireThat(new Set(tickets.map(ticket => ticket.join(','))).size === tickets.length, 'Hay cartones duplicados en el catálogo.');
     this.catalog = tickets; this.notify = notify; this.revoke = revoke;
@@ -172,7 +172,7 @@ export class BingoGame {
     const player = this.players.get(client.playerId);
     return {
       type: 'state', role: client.role, phase: this.phase, roundId: this.roundId, turn: this.called.length,
-      settings: { ...this.settings }, current: this.current, called: [...this.called], drawEndsAt: this.drawEndsAt,
+      settings: { ...this.settings }, current: this.current, called: [...this.called], drawEndsAt: this.drawEndsAt, drawDurationMs: this.drawMs,
       winners: [...this.winners],
       players: [...this.players.values()].map(item => ({ id: item.id, name: item.ready ? item.name : '', avatar: item.ready ? item.avatar : null, ready: item.ready, online: Boolean(item.clientId), wins: item.wins, playing: item.playing, continued: item.continued })),
       me: player ? { id: player.id, name: player.name, avatar: player.avatar, ready: player.ready, playing: player.playing, cards: player.cards.map(card => [...card]), marks: player.marks.map(marks => [...marks]), continued: player.continued } : null,

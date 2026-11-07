@@ -2,29 +2,35 @@
 
 ## Dirección artística
 
-Juegos de sobremesa contemporáneos: papel cálido, terracota, verde petróleo, mostaza, formas redondeadas y personaje azul. Los cartones se adaptaron expresamente a un estilo **tradicional modernizado**: rectángulo horizontal 3×9, borde doble, números de imprenta, tramado en huecos y marcas perforadas. El color no es la única indicación: pestañas, contadores y etiquetas accesibles identifican cada cartón.
+Juegos de sobremesa contemporáneos: papel cálido, terracota, verde petróleo, mostaza y formas redondeadas. El anfitrión es un señor mayor de chaleco y pajarita rojos, gafas redondas, bigote y pelo gris, junto a un bombo dorado. Las ilustraciones 2D y el modelo 3D representan al mismo personaje. Los cartones tienen un estilo tradicional modernizado: formato horizontal 3×9, borde doble, números de imprenta, tramado en huecos y marcas perforadas. Colores, pestañas, contadores y etiquetas accesibles identifican cada cartón.
 
-## Origen y preparación
+## Fuentes y preparación
 
-`source/avatars.png`, `source/presenter.png` y `source/tickets.png` son imágenes creadas con la herramienta de generación de imágenes durante el desarrollo. El atlas contiene veinte personajes familiares, animales y robots en una matriz de 5×4.
+Los originales se guardan en `source/` y no se sirven al navegador:
 
-`scripts/prepare-assets.mjs`, ejecutado en la construcción de Docker:
+- `avatars.png`: atlas generado de veinte personajes familiares, animales y robots en una matriz de 5×4.
+- [presenter-static.png](source/presenter-static.png): ilustración artística de cuerpo completo del anfitrión y el bombo, con fondo transparente. Se utiliza en el selector de TV y como reserva de la partida y los resultados. [Prompt y procedencia](source/presenter-static.prompt.md).
+- [presenter-cover.png](source/presenter-cover.png): ilustración del mismo anfitrión de medio cuerpo, con bombo y bola, para la portada del catálogo. [Prompts y procedencia](source/presenter-cover.prompt.md).
 
-1. Corta el atlas en el servidor/build en veinte WebP de 160×160.
-2. Reduce el presentador estático a 840 píxeles de ancho.
-3. Recorta cinco texturas de papel de la ilustración inicial. Se conservan como material artístico opcional; el diseño final utiliza marcos SVG tradicionales para garantizar que las casillas coincidan en cualquier pantalla.
-4. Escribe cinco imágenes base de cartón, casillas vacías/numéricas/perforadas rectangulares, flecha doble reversible, bola sin número y tablero en SVG.
-5. Escribe el sprite numérico exacto 1–90 en SVG. Se conserva como material opcional. El cartón actual usa texto Space Mono para mantener proporciones y legibilidad en cualquier tamaño.
-6. Prepara iconos PNG para la PWA y el catálogo de cartones si falta.
+Las dos ilustraciones del anfitrión se han creado con la herramienta integrada de generación de imágenes, manteniendo identidad y acabado pictórico de gouache y lápiz. El modelo de Blender define al mismo personaje. Los números funcionales, cartones, flechas y textos se dibujan por código para garantizar su exactitud.
 
-Los originales permanecen fuera de `public/` y no se sirven al navegador. Las imágenes SVG de flechas, tablero, bolas y cartones se construyen por código porque son geometrías y texto que requieren alineación exacta. El atlas y el personaje sí son imágenes generativas. No se usa una imagen generativa para dibujar números: podría introducir errores de lectura.
+`scripts/prepare-assets.mjs`, ejecutado durante la construcción Docker:
 
-La portada del catálogo conserva la composición original BIN / GO!, la bola 90 y el presentador original. El selector de dispositivo utiliza el mismo presentador y el cartón inclinado original. No sustituir estas imágenes ni introducir otros motivos sin una petición expresa. Los avatares conservan proporción 1:1, incluidos la lista de recuperación y el perfil en móvil vertical.
+1. Extrae veinte avatares WebP de 160×160.
+2. Prepara `presenter-cover.webp` a 840 píxeles y `presenter-static.webp` a 840 píxeles con transparencia y márgenes.
+3. Genera las casillas, flechas, bolas y tablero SVG que referencia la interfaz.
+4. Prepara iconos PNG y el catálogo de cartones cuando falta.
 
-El modelo 3D está en `public/presenter-model.js`; `public/presenter.js` gestiona cámara, luces, sombras, texturas y renderizado. Incluye cuerpo y extremidades articuladas, silla con respaldo, mesa de madera, pedestal y ejes metálicos, manivela, bandeja y bolas numeradas. La pose de espera respira, parpadea y mueve suavemente cabeza y manos. Se comprueba con pruebas geométricas que el cuerpo queda detrás de la mesa y que las bolas no salen del bombo. Se puede sustituir por un modelo glTF manteniendo las funciones `mountPresenter(element)`, `update(phase, drawEndsAt)` y `dispose()`.
+La portada del Game Center mantiene BIN / GO!, el rótulo «PARA TODA LA FAMILIA» y la bola 90, compuestos en SVG sobre la nueva ilustración. El selector de TV utiliza al anfitrión actual; el selector de jugador conserva el cartón. Los avatares mantienen proporción 1:1. No se incluyen imágenes, generadores ni referencias del anfitrión anterior.
 
-El personaje conserva una cara sencilla, material azul mate y brazos redondeados. Cada mano es una sola esfera, sin dedos ni pulgares.
+## Modelo y escena
 
-## Fuentes
+La única fuente editable 3D es [bingo_character_relaxed_hands.blend](blender/v8/bingo_character_relaxed_hands.blend). Tiene 45 huesos, nueve clips y una biblioteca de bolas 1–90. El juego y la vista de revisión cargan `public/assets/models/bingo_character_animated.glb`.
 
-Fredoka para interfaz y bolas; Space Mono para rótulos del cartón y una serif de imprenta en el sprite. Se incluyen las fuentes de interfaz mediante paquetes npm y se sirven desde Docker sin Google Fonts ni CDN. Se conservan los archivos de licencia de sus paquetes dentro de la imagen. La personalización actual es gráfica y numérica; no se ha diseñado una fuente tipográfica original completa.
+`bingo-character.js` controla esqueleto, clips y bola numerada; `cage-balls.js` asienta las bolas al parar; `presenter.js` monta la escena y expone `update(state)` y `dispose()`. `presenter.css` reserva una franja independiente para el rótulo BINGO; imagen y canvas se encuadran en el espacio inferior, conservando el personaje y el bombo completos. El telón SVG aporta el decorado sin duplicar el rótulo. La [documentación del presentador](../docs/blender-character.md) reúne modelo, coreografía, escenario, integración y validaciones.
+
+## Fuentes tipográficas
+
+Fredoka para interfaz y bolas; Space Mono para cartones y una serif de imprenta en el sprite. Se sirven localmente desde Docker, sin CDN, con las licencias de sus paquetes. La personalización es gráfica y numérica; no se ha diseñado una tipografía original completa.
+
+Las pruebas automatizadas viven en tests/; las fuentes editables y los validadores de Blender se conservan para mantenimiento. Capturas, vídeos temporales y copias .blend1 no forman parte del proyecto entregado. artifacts/ y art/blender/ quedan fuera del contexto de construcción Docker; la imagen del servidor utiliza el GLB exportado.

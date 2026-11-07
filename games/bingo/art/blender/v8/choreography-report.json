@@ -1,0 +1,47 @@
+{
+  "new_choreography": true,
+  "bones": 45,
+  "clips": {
+    "Idle": {
+      "seconds": 4.5,
+      "frames": 136,
+      "target_clamping_m": 0.0
+    },
+    "SpinDrum": {
+      "seconds": 5.0,
+      "frames": 151,
+      "target_clamping_m": 0.0
+    },
+    "PickBall": {
+      "seconds": 2.6,
+      "frames": 79,
+      "target_clamping_m": 0.0
+    },
+    "ShowBall": {
+      "seconds": 3.0,
+      "frames": 91,
+      "target_clamping_m": 0.0
+    },
+    "DropBall": {
+      "seconds": 1.4,
+      "frames": 43,
+      "target_clamping_m": 0.0
+    },
+    "Celebrate": {
+      "seconds": 3.0,
+      "frames": 91,
+      "target_clamping_m": 0.0
+    },
+    "Wave": {
+      "seconds": 2.5,
+      "frames": 76,
+      "target_clamping_m": 0.0
+    },
+    "Talk": {
+      "seconds": 3.2,
+      "frames": 97,
+      "target_clamping_m": 0.0
+    }
+  },
+  "maximum_unreachable_m": 0.0
+}

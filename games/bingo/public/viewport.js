@@ -5,8 +5,14 @@ export function installViewportLayout(app) {
     const board = app.querySelector('.number-board');
     const space = app.querySelector('.board-space');
     if (board && space) {
-      const width = Math.floor(Math.min(space.clientWidth, space.clientHeight * 10 / 9));
-      board.style.width = `${width}px`; board.style.height = `${Math.floor(width * .9)}px`;
+      const columns=space.clientWidth/Math.max(1,space.clientHeight)>1.65?15:10,rows=90/columns;
+      const width=Math.floor(Math.min(space.clientWidth,space.clientHeight*columns/rows)),height=Math.floor(width*rows/columns);
+      const gap=Math.max(1,Math.min(8,width/80)),padding=Math.max(3,Math.min(20,width*.035));
+      board.style.setProperty('--board-columns',String(columns));board.style.setProperty('--board-rows',String(rows));
+      board.style.setProperty('--board-gap',`${gap}px`);board.style.setProperty('--board-padding',`${padding}px`);
+      board.style.width=`${width}px`;board.style.height=`${height}px`;
+      const cellWidth=(width-2*padding-(columns-1)*gap)/columns,cellHeight=(height-2*padding-(rows-1)*gap)/rows;
+      board.style.setProperty('--board-number-size',`${Math.max(1,Math.floor(Math.min(cellWidth,cellHeight)*.73))}px`);
     }
     const ticket = app.querySelector('.traditional-ticket');
     const playfield = app.querySelector('.player-playfield');

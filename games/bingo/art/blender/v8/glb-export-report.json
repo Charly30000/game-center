@@ -1,0 +1,23 @@
+{
+  "file": "C:\\Users\\Andres\\Documents\\informatica\\proyectos\\gameCenter\\games\\bingo\\public\\assets\\models\\bingo_character_animated.glb",
+  "bytes": 5586692,
+  "clips": [
+    "DrumSpin",
+    "Idle",
+    "SpinDrum",
+    "PickBall",
+    "ShowBall",
+    "DropBall",
+    "Celebrate",
+    "Wave",
+    "Talk"
+  ],
+  "skins": 1,
+  "nodes": 566,
+  "meshes": 301,
+  "cameras": 0,
+  "spin_tracks_disjoint": true,
+  "animated_cage_balls": 18,
+  "ball_templates_unit_scale": true,
+  "model_version": 8
+}

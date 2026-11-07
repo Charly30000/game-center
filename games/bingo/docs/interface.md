@@ -42,11 +42,11 @@ El selector permite ver y pulsar todos los cartones sin desplazamiento. En móvi
 
 El documento y el selector de cartones no tienen scroll. Las listas de jugadores en TV mantienen tarjetas completas con desplazamiento automático, pausado al interactuar.
 
-Los cartones mantienen su proporción y los números se calculan según el tamaño real de la casilla. El marcado pendiente continúa con el parpadeo rojo y con la modal de Continuar cuando no sale ningún número propio.
+Los cartones mantienen su proporción y los números se calculan según el tamaño real de la casilla. El tablero de TV ajusta también su fuente y sus separaciones a las bolas: 10×9 normalmente, 15×6 en regiones muy bajas y anchas. La franja de jugadores se compacta y la bola actual se superpone en la esquina del escenario en TV con poco espacio. El marcado pendiente continúa con el parpadeo rojo y con la modal de Continuar cuando no sale ningún número propio.
 
 ## Presentador
 
-Mantener al personaje azul y su escena. Sus manos son una única esfera azul cada una, sin dedos. La cara usa ojos y sonrisa simples, sin reflejos brillantes; el cuerpo tiene material mate y los brazos formas redondeadas. Mantener la separación geométrica respecto a la mesa, las piernas, la silla y las animaciones de extracción y espera.
+La TV utiliza el anfitrión anciano de Blender con chaleco rojo, gafas, bigote y bombo dorado a la izquierda del público. La mano derecha opera la manivela y recoge la bola; las palmas descansan hacia el cuerpo y los dedos se flexionan hacia la palma. Las muñecas acompañan al antebrazo y tienen flexión limitada. Las bolas interiores tienen movimiento independiente del giro de la jaula. La actuación utiliza cuerpo completo, mirada y cejas, presentación, salto y desaparición de la bola con estrellas. El encuadre conserva personaje y bombo completos en un área inferior independiente; `presenter.css` reserva espacio arriba para el rótulo BINGO, que no se superpone con el aviso de bola en pantallas compactas. El decorado de teatro oscuro puede recortarse. El selector y la imagen estática muestran al mismo anfitrión de las animaciones. En resultados, la victoria continúa en bucle hasta abandonar esa pantalla o empezar otra partida. La extracción dura cinco segundos y las acciones no bloquean a los jugadores. Véase [presentador de Blender](blender-character.md).
 
 Los ajustes del personaje no autorizan cambios de imágenes, portada, bombo o interfaz que no se hayan solicitado. El detalle de los recursos se mantiene en [arte](../art/README.md).
 

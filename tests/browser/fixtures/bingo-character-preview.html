@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Presentador de Bingo · Revisión v8</title>
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="/games/bingo/presenter.css">
+  <style>
+    body{height:100dvh;display:grid;grid-template-columns:minmax(0,1fr) 280px;background:#eee4d5}
+    #stage{min-width:0;min-height:0;position:relative}canvas{display:block;width:100%;height:100%}
+    aside{padding:22px;background:#fffaf0;overflow:auto;display:flex;flex-direction:column;gap:16px}
+    h1{font-size:25px}p{font-size:14px;line-height:1.4}#clips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    button{min-height:42px;border:1px solid #cbc5b7;border-radius:9px;padding:8px;background:#fff}
+    button:hover{background:#e3eedc}label{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    input{width:72px;padding:8px;border:1px solid #cbc5b7;border-radius:8px}#error{color:#a32121}a{text-decoration:underline}
+    @media(max-width:650px){body{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(220px,1fr) auto}aside{max-height:40dvh;padding:12px;gap:10px}#clips{grid-template-columns:repeat(4,minmax(0,1fr))}h1{font-size:20px}}
+  </style>
+  <script type="importmap">{"imports":{"three":"/vendor/three/three.module.js","three/addons/":"/vendor/three/addons/"}}</script>
+</head>
+<body>
+  <main id="stage" class="presenter-stage" aria-label="Vista del presentador 3D"><span class="presenter-sign" aria-hidden="true">BINGO</span><div class="presenter-viewport"></div></main>
+  <aside>
+    <h1>Presentador v8</h1>
+    <p id="status" role="status">Cargando modelo y clips…</p>
+    <div id="clips" aria-label="Animaciones"></div>
+    <label for="number">Número de bola <input id="number" type="number" min="1" max="90" value="28"></label>
+    <button id="show" disabled>Recoger y mostrar bola</button>
+    <button id="remove" disabled>Retirar bola</button>
+    <button id="stop" disabled>Detener animaciones</button>
+    <p id="error" role="alert"></p>
+    <p>Los nueve clips siguen las fichas de animación. Recoger y mostrar bola encadena PickBall → ShowBall → DropBall → Talk. SpinDrum mantiene el agarre sincronizado; DrumSpin permite revisar solo la jaula y sus bolas.</p>
+    <a href="/games/bingo/">Abrir Bingo</a>
+  </aside>
+  <script type="module" src="/review/bingo-character/preview.js"></script>
+</body>
+</html>

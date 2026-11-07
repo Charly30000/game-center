@@ -1,0 +1,39 @@
+{
+  "protected_before_sha256": "28fe6f06a04db9f7597e400f4b5eb8176925102fa4ce1cbb902797d5fcfbd2ba",
+  "clips": {
+    "Celebrate": {
+      "seconds": 3.0,
+      "frames": 91
+    },
+    "DropBall": {
+      "seconds": 1.4,
+      "frames": 43
+    },
+    "Idle": {
+      "seconds": 4.5,
+      "frames": 136
+    },
+    "PickBall": {
+      "seconds": 2.6,
+      "frames": 79
+    },
+    "ShowBall": {
+      "seconds": 3.0,
+      "frames": 91
+    },
+    "SpinDrum": {
+      "seconds": 5.0,
+      "frames": 151
+    },
+    "Talk": {
+      "seconds": 3.2,
+      "frames": 97
+    },
+    "Wave": {
+      "seconds": 2.5,
+      "frames": 76
+    }
+  },
+  "protected_after_sha256": "28fe6f06a04db9f7597e400f4b5eb8176925102fa4ce1cbb902797d5fcfbd2ba",
+  "only_finger_channels_changed": true
+}

@@ -51,3 +51,5 @@ Por ahora el diseño gráfico del catálogo está especializado en Bingo. Al añ
 Node.js 22, `ws` para transporte WebSocket, Three.js para el presentador opcional y Sharp únicamente para preparar imágenes. Fuentes Fredoka y Space Mono incluidas en la imagen, sin CDN. `package-lock.json` fija las dependencias transitivas y Docker utiliza `npm ci`.
 
 Referencias técnicas: [Docker Engine API](https://docs.docker.com/reference/api/engine/), [ws](https://github.com/websockets/ws), [Three.js](https://threejs.org/docs/), [instalación PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable).
+
+Los artefactos temporales (artifacts/) y las fuentes de Blender (games/*/art/blender/) no se incluyen en la imagen del servidor. Las pruebas reutilizables se conservan en tests/; la vista manual del personaje solo la sirve la pasarela de pruebas, fuera de games/bingo/public/.

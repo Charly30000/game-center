@@ -24,6 +24,7 @@ const server = http.createServer(async (request, response) => {
     if (path.startsWith('/assets/source/')) return json(response, 404, { error: 'Recurso privado.' });
     if (path === '/vendor/three/three.module.js') return serveFile(response, 'node_modules/three/build', 'three.module.js', { cache: true });
     if (path === '/vendor/three/three.core.js') return serveFile(response, 'node_modules/three/build', 'three.core.js', { cache: true });
+    if (path.startsWith('/vendor/three/addons/')) return serveFile(response, 'node_modules/three/examples/jsm', path.slice('/vendor/three/addons/'.length), { cache: true });
     if (path.startsWith('/fonts/fredoka/')) return serveFile(response, 'node_modules/@fontsource/fredoka/files', path.slice('/fonts/fredoka/'.length), { cache: true });
     if (path.startsWith('/fonts/space-mono/')) return serveFile(response, 'node_modules/@fontsource/space-mono/files', path.slice('/fonts/space-mono/'.length), { cache: true });
     if (path.startsWith('/shared/')) return serveFile(response, 'public/shared', path.slice(8));

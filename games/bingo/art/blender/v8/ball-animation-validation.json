@@ -1,0 +1,10 @@
+{
+  "balls": 18,
+  "frames": 151,
+  "slots_in_DrumSpin": 19,
+  "max_displacement_m": 0.22253451429719612,
+  "min_separation_m": 0.08659998009191601,
+  "max_radius_with_ball_m": 0.2940000043526826,
+  "min_axis_distance_m": 0.1640919220701945,
+  "closed_loop": true
+}

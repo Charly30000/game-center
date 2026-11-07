@@ -1,0 +1,53 @@
+{
+  "reimported": true,
+  "file_sha256": "eb3906c7ed1f8ca77f05d9ea01145913384fcafc629122e1fe0229c4f2fdd6d2",
+  "clips": {
+    "Talk": {
+      "frames": 97,
+      "seconds": 3.2,
+      "hand_motion_m": 0.16743497032393456
+    },
+    "Wave": {
+      "frames": 76,
+      "seconds": 2.5,
+      "hand_motion_m": 0.4746409739759958
+    },
+    "Celebrate": {
+      "frames": 91,
+      "seconds": 3.0,
+      "hand_motion_m": 0.5756961523470593
+    },
+    "DropBall": {
+      "frames": 43,
+      "seconds": 1.4,
+      "hand_motion_m": 0.2739574227953267
+    },
+    "ShowBall": {
+      "frames": 91,
+      "seconds": 3.0,
+      "hand_motion_m": 0.13162846399416292
+    },
+    "PickBall": {
+      "frames": 79,
+      "seconds": 2.6,
+      "hand_motion_m": 0.32903794174579515
+    },
+    "SpinDrum": {
+      "frames": 151,
+      "seconds": 5.0,
+      "hand_motion_m": 0.1987630980400106
+    },
+    "Idle": {
+      "frames": 136,
+      "seconds": 4.5,
+      "hand_motion_m": 0.23671652823627537
+    },
+    "DrumSpin": {
+      "seconds": 5,
+      "independent_rotor_track": true
+    }
+  },
+  "max_spin_contact_error_m": 4.519745972187251e-07,
+  "bones": 45,
+  "skinned_meshes": 19
+}

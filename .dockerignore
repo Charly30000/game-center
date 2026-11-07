@@ -3,5 +3,8 @@ node_modules
 .codex
 .agents
 coverage
+artifacts
+games/*/art/blender
+*.blend[0-9]*
 *.log
 .env

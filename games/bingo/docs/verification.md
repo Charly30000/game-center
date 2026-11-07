@@ -6,7 +6,7 @@ Pruebas desde Windows con Docker Desktop y contenedores Linux. No se instalaron 
 
 ## Reglas, contenedores y geometría
 
-32 pruebas automatizadas comprueban:
+33 pruebas automatizadas comprueban:
 
 - Catálogo de 10.000 cartones válidos y únicos, reparto sin repetidos para hasta 40 jugadores con cinco cartones, validación de nombres y privacidad.
 - Barrera de turnos, números pendientes, jugadores desconectados, recuperación, invalidación de credenciales, empates y revancha.
@@ -14,7 +14,8 @@ Pruebas desde Windows con Docker Desktop y contenedores Linux. No se instalaron 
 - Arranque concurrente y exclusión mutua entre arranque y retirada por inactividad.
 - Códigos de mando y navegación direccional.
 - Preparación vertical, cambio a horizontal liberando el bloqueo anterior, descarte de peticiones antiguas, recuperación explícita de pantalla completa y funcionamiento si el navegador rechaza las API.
-- El volumen del torso permanece detrás de la mesa durante extracción y espera. Silla, piernas, pies y manivela existen; las bolas permanecen dentro del bombo y la pose de espera cambia con el tiempo.
+- El GLB real contiene nueve clips nuevos, 45 huesos y 19 mallas con pesos normalizados; las manos tienen orientación anatómica, el agarre sigue la manivela con menos de 1 mm de error entre claves, se mueven las 18 bolas dentro de la jaula, se asientan sin saltar al parar, se prueban los 90 números y las transiciones de partida, incluida la elevación y desaparición con estrellas de `DropBall`.
+- La extracción programa cinco segundos y publica el mismo reloj para todas las pantallas. La articulación visual distingue vocales y cierres labiales para los 90 números en español.
 
 La caducidad de 24 horas se comprueba adelantando el reloj con un adaptador Docker simulado; no se ha esperado un día real.
 
@@ -32,7 +33,7 @@ Se recorren selector, lista independiente de jugadores, perfil, espera, extracci
 
 El selector de cartones se comprueba además con **uno, dos, tres, cuatro y cinco cartones** en 320×568, 360×640, 390×844, 568×320, 667×375, 844×390, 960×551 y 1024×600. Se comprueba que todos los botones caben simultáneamente, miden al menos 44×44 píxeles, sus etiquetas y contadores no se cortan y el selector no desborda ni se desplaza. Se pulsa cada cartón y se comprueba su selección, además de probar flechas y Enter. Las capturas `ticket-selector-*.png` recogen estas distribuciones.
 
-Se revisan capturas en `artifacts/`: catálogo en varios tamaños, 40 tarjetas de jugadores, cartón vertical/horizontal, TV estática, TV 3D y resultados. Las imágenes de portada no invaden la zona blanca del título. Los cartones conservan proporciones y los números se representan como texto sin deformación del sprite.
+Se revisan capturas en `artifacts/`: catálogo en varios tamaños, 40 tarjetas de jugadores, cartón vertical/horizontal, TV estática, TV 3D y resultados. Las imágenes de portada no invaden la zona blanca del título. Los cartones conservan proporciones y los números se representan como texto sin deformaciones.
 
 ## Teclado, avatares y pantalla completa
 
@@ -58,6 +59,16 @@ En una verificación anterior, la prueba de protocolo también completó una par
 
 ## Límites
 
+La revisión aprobada v8 comprueba la postura frente a la manivela, el sentido de flexión del codo, la orientación del agarre, las muñecas y la cascada de dedos relajados. Se validan todos los fotogramas del modelo y las medias claves del GLB mediante GLTFLoader y Three.js. Pasan las 33 pruebas; se conservan encuadre completo, bolas independientes y victoria continua tras cinco ciclos. Los informes actuales se describen en [presentador de Blender](blender-character.md).
+
+`tests/browser/presenter.mjs` permite revisar las 90 bolas simultáneamente, midiendo cada número dentro de su casilla, en 1280×720, 960×540, 800×480, 667×375, 568×320, 360×640 y 320×568. Espera al ajuste de altura visible después de redimensionar antes de medir. `--layout-only` aísla esa comprobación sin cargar WebGL. La revisión completa incluye `DropBall`, `Talk`, decorado oscuro y otro ciclo de victoria; utiliza estados simulados y no modifica partidas reales. Las comprobaciones anteriores de tamaños no equivalen a una nueva grabación WebGL completa con cada cambio del modelo. Las capturas e informes de las versiones retiradas ya no forman parte del proyecto.
+
 Los tamaños se emulan en Chromium; no se ha utilizado cada modelo físico de TV, mando o iPhone. Las teclas reservadas por el navegador o el sistema no pueden garantizarse desde una página web.
 
 La instalación PWA necesita un contexto seguro según el navegador. Una IP LAN mediante HTTP permite jugar, pero no garantiza instalación. El estado de Bingo es deliberadamente volátil y no se conserva al reiniciar su contenedor. La animación de las bolas es una simulación visual acotada al bombo, sin un motor físico completo.
+
+## Identidad del anfitrión y rótulo del escenario
+
+La portada con el nuevo anfitrión conserva BIN / GO! y la bola 90; el selector utiliza la ilustración del mismo señor que aparece en el modelo 3D. Se revisan catálogo, selector y partida de TV en 1280×720, 960×540, 800×480, 667×375, 568×320, 360×640 y 320×568. En el catálogo se comprueba que la ilustración y la parte blanca de la tarjeta mantienen sus áreas; en el selector se comprueban proporciones y ausencia de desbordamiento.
+
+`tests/browser/presenter.mjs --layout-only` comprueba en los siete tamaños las 90 bolas, ausencia de scroll de TV, las cinco letras de BINGO dentro de su rótulo y su separación de la imagen, el canvas y el aviso de bola. La revisión visual adicional utiliza una imagen WebGL real a 1280×720 y comprueba que su tamaño coincide con el área inferior reservada. Son tamaños emulados; no se han medido FPS en televisores físicos. Los artefactos temporales de revisión se guardan en `artifacts/`, fuera del commit y de Docker, y pueden eliminarse después de inspeccionarlos.

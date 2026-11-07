@@ -1,6 +1,7 @@
 node_modules/
 coverage/
 artifacts/
+*.blend[0-9]*
 *.log
 .env
 .DS_Store

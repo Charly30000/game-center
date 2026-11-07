@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="night"><stop stop-color="#26475c"/><stop offset="1" stop-color="#091729"/></radialGradient>
+    <linearGradient id="velvet"><stop stop-color="#401d32"/><stop offset=".45" stop-color="#8f3549"/><stop offset=".7" stop-color="#4c2035"/><stop offset="1" stop-color="#271c32"/></linearGradient>
+    <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#ffe3a0"/><stop offset=".5" stop-color="#a67332"/><stop offset="1" stop-color="#edc97b"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#f6ce7d" stop-opacity=".22"/><stop offset="1" stop-color="#f6ce7d" stop-opacity="0"/></radialGradient>
+    <pattern id="wall" width="120" height="120" patternUnits="userSpaceOnUse"><path d="M60 18 96 60 60 102 24 60Z" fill="none" stroke="#9caaba" stroke-opacity=".06"/></pattern>
+    <g id="curtain"><path d="M0 0H270C260 240 210 470 165 640L90 1000H0Z" fill="url(#velvet)"/><path d="M55 0C90 320 80 630 25 1000M120 0C155 240 145 430 92 740M195 0C211 160 193 350 151 500" fill="none" stroke="#d37977" stroke-opacity=".22" stroke-width="15"/><path d="M260 0C250 260 202 490 159 651" fill="none" stroke="url(#gold)" stroke-width="9"/><path d="M74 795 151 635" stroke="#e3bc6a" stroke-width="12"/></g>
+  </defs>
+  <path fill="url(#night)" d="M0 0H1600V1000H0Z"/><path fill="url(#wall)" d="M0 0H1600V1000H0Z"/>
+  <ellipse cx="980" cy="470" rx="610" ry="500" fill="url(#glow)"/>
+  <use href="#curtain"/><use href="#curtain" transform="translate(1600) scale(-1 1)"/>
+  <path d="M0 0H1600V84Q1200 155 800 84 400 155 0 84Z" fill="#54273a"/>
+  <path d="M0 82Q400 154 800 82 1200 154 1600 82" fill="none" stroke="url(#gold)" stroke-width="8"/>
+  <path d="M260 930H1340" stroke="#c49b54" stroke-opacity=".25" stroke-width="2"/>
+</svg>

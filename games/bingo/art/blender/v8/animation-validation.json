@@ -1,0 +1,96 @@
+{
+  "bones": 45,
+  "clips": {
+    "Idle": {
+      "seconds": 4.5,
+      "evaluated_frames": 136,
+      "loop_matrix_error": 4.172325134277344e-07,
+      "foot_motion_m": 9.912352782227151e-08
+    },
+    "SpinDrum": {
+      "seconds": 5,
+      "evaluated_frames": 151,
+      "loop_matrix_error": 2.384185791015625e-07,
+      "foot_motion_m": 1.0563021062879134e-07
+    },
+    "PickBall": {
+      "seconds": 2.6,
+      "evaluated_frames": 79,
+      "loop_matrix_error": 1.6984241008758545,
+      "foot_motion_m": 8.940696716308594e-08
+    },
+    "ShowBall": {
+      "seconds": 3,
+      "evaluated_frames": 91,
+      "loop_matrix_error": 0.13188940286636353,
+      "foot_motion_m": 9.541398640621973e-08
+    },
+    "DropBall": {
+      "seconds": 1.4,
+      "evaluated_frames": 43,
+      "loop_matrix_error": 1.6508723497390747,
+      "foot_motion_m": 8.72068100476237e-08
+    },
+    "Celebrate": {
+      "seconds": 3,
+      "evaluated_frames": 91,
+      "loop_matrix_error": 3.2782554626464844e-07,
+      "foot_motion_m": 0.19499998840002106
+    },
+    "Wave": {
+      "seconds": 2.5,
+      "evaluated_frames": 76,
+      "loop_matrix_error": 2.980232238769531e-07,
+      "foot_motion_m": 1.228781230931777e-07
+    },
+    "Talk": {
+      "seconds": 3.2,
+      "evaluated_frames": 97,
+      "loop_matrix_error": 0.2799999862909317,
+      "foot_motion_m": 1.1250129990683123e-07
+    },
+    "DrumSpin": {
+      "seconds": 5,
+      "turns": 1,
+      "axis": "X",
+      "loop": true
+    }
+  },
+  "unweighted_vertices": 0,
+  "bad_weight_sums": 0,
+  "max_influences": 3,
+  "max_hand_joint_gap_m": 2.724305584845278e-07,
+  "max_spin_contact_error_m": 3.01357335092972e-07,
+  "max_static_part_motion_m": 0,
+  "max_accessory_drift": 4.172325134277344e-07,
+  "max_wrist_axial_twist_deg": 2.1772457605065722e-05,
+  "max_wrist_bend_deg": 34.74481030782886,
+  "max_arm_rotation_step_deg": 22.704054235120964,
+  "collision_samples": [],
+  "pick_to_show_socket_error_m": 9.721508883461273e-08,
+  "max_unreachable_target_m": 0.0,
+  "max_anchor_error_m": 2.0701354726329154e-07,
+  "neutral_hand_anatomy": {
+    "L": {
+      "dorsal_outward_dot": 0.9951708912849426,
+      "thumb_forward_y": -0.07864998281002045
+    },
+    "R": {
+      "dorsal_outward_dot": 0.9951706528663635,
+      "thumb_forward_y": -0.07864988595247269
+    }
+  },
+  "drum_on_viewer_left": true,
+  "presentation_bounds_three": {
+    "min": [
+      -0.7949999856948853,
+      -0.03,
+      -0.7846437978744507
+    ],
+    "max": [
+      1.0128574061393738,
+      1.7192911195755005,
+      0.5486249017715454
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "bytes": 5586692,
+  "clips": [
+    "Idle",
+    "SpinDrum",
+    "PickBall",
+    "ShowBall",
+    "DropBall",
+    "Celebrate",
+    "Wave",
+    "Talk",
+    "DrumSpin"
+  ],
+  "bones": 45,
+  "skinnedMeshes": 19,
+  "maxContactErrorM": 0.0003921455003503026,
+  "crankPosture": {
+    "minHandAheadM": 0.025428572010914863,
+    "minHandleAxisDot": 0.9999980901175463,
+    "minForearmForward": 0.2057367185384899,
+    "minElbowFlexDeg": 68.06622372859704,
+    "maxElbowFlexDeg": 137.2622001755277
+  },
+  "ballNumbersTested": 90,
+  "animatedCageBalls": 18,
+  "minCageSeparationM": 0.08597554713405074,
+  "cageBallMovementM": [
+    0.20331421343580353,
+    0.0957388240556327,
+    0.20091719347536732,
+    0.14400062460000407,
+    0.18685155509455972,
+    0.14058495742522487,
+    0.22022140394112283,
+    0.20248546210399423,
+    0.19517556114219792,
+    0.1598192552214767,
+    0.1117549250312729,
+    0.1903528946134067,
+    0.22253452343660213,
+    0.21476556684806972,
+    0.21683486097483995,
+    0.20992557694987962,
+    0.22048035258473206,
+    0.15654165425620847
+  ],
+  "movement": {
+    "Idle": 0.3181070078123167,
+    "SpinDrum": 0.2837663721279687,
+    "PickBall": 0.45904893297181193,
+    "ShowBall": 0.1872638311191253,
+    "DropBall": 0.42633154295331827,
+    "Celebrate": 0.6717516479617248,
+    "Wave": 0.4746409473051824,
+    "Talk": 0.23449464963266778,
+    "DrumSpin": 0.2439999580383303
+  },
+  "temporalMotion": {
+    "Idle": {
+      "armHalfFrameDeg": 2.5889531309784704,
+      "handHalfFrameDeg": 2.5386228780513758
+    },
+    "SpinDrum": {
+      "armHalfFrameDeg": 4.226626188994186,
+      "handHalfFrameDeg": 4.226626188989355
+    },
+    "PickBall": {
+      "armHalfFrameDeg": 5.90440873945224,
+      "handHalfFrameDeg": 5.3601177028521665
+    },
+    "ShowBall": {
+      "armHalfFrameDeg": 2.2668268367141677,
+      "handHalfFrameDeg": 2.499049368959477
+    },
+    "DropBall": {
+      "armHalfFrameDeg": 8.31373333600593,
+      "handHalfFrameDeg": 8.31373333601418
+    },
+    "Celebrate": {
+      "armHalfFrameDeg": 7.76083380109579,
+      "handHalfFrameDeg": 7.743937137688553
+    },
+    "Wave": {
+      "armHalfFrameDeg": 7.174973816840715,
+      "handHalfFrameDeg": 11.399271799654985
+    },
+    "Talk": {
+      "armHalfFrameDeg": 1.6658048687407596,
+      "handHalfFrameDeg": 1.5887887951311863
+    }
+  },
+  "restingFingers": {
+    "L": [
+      17.999410655318933,
+      22.000152167280604,
+      25.99887560212436,
+      29.99278690893819
+    ],
+    "R": [
+      17.999410643404083,
+      22.000152329983855,
+      25.998877865039436,
+      29.99279253947813
+    ]
+  },
+  "maxFingerHalfFrameDeg": 1.7261766021150835,
+  "gameAdapter": true,
+  "anatomy": true,
+  "drumOnLeft": true,
+  "dropBall": true,
+  "visibleStars": 9,
+  "maxWristTwistDeg": 0.1826892642649799,
+  "maxWristBendDeg": 34.492412938046506,
+  "victoryLoop": true,
+  "subjectFraming": true
+}

@@ -18,11 +18,14 @@ function toolbar(title, subtitle = '', extra = '') {
 function scroller(players, key, { horizontal = false, selectable = false } = {}) {
   return `<div class="scroll-region ${horizontal ? 'card-rail' : 'card-grid'}" ${selectable ? '' : `data-auto-scroll="${key}" data-axis="${horizontal ? 'x' : 'y'}"`} aria-label="${selectable ? 'Elige un jugador' : 'Jugadores'}">${players.map(player => playerCard(player,selectable)).join('')}</div>`;
 }
+function presenterStage(extra = '') {
+  return `<div id="presenter-stage" class="presenter-stage ${extra}"><span class="presenter-sign" aria-hidden="true">BINGO</span><div class="presenter-viewport"><img src="./assets/presenter-static.webp?v=illustration-1" alt="Presentador de chaleco rojo junto al bombo dorado"></div></div>`;
+}
 export function chooseScreen() {
   return `<div class="view-toolbar"><a class="back" href="/">← Centro de juegos</a></div>
     <div class="role-intro"><span class="eyebrow">Bingo en familia</span><h1>Cada pantalla tiene <span>su papel.</span></h1><p>Una tele para compartirlo todo. Un móvil para guardar tus números.</p></div>
     <div class="role-options screen-body">
-      <button class="role-card" data-role="tv"><span class="role-picture"><img src="./assets/presenter.webp" alt="Presentador junto al bombo"></span><span class="role-kicker">La pantalla de todos</span><strong>Televisión</strong><span>Prepara la partida, sigue las bolas y celebra cada bingo.</span></button>
+      <button class="role-card" data-role="tv"><span class="role-picture"><img src="./assets/presenter-static.webp?v=illustration-1" alt="Presentador de chaleco rojo junto al bombo dorado"></span><span class="role-kicker">La pantalla de todos</span><strong>Televisión</strong><span>Prepara la partida, sigue las bolas y celebra cada bingo.</span></button>
       <button class="role-card" data-role="player"><span class="role-picture player-picture"><span class="mini-ticket" aria-hidden="true">${[7,12,25,40,83,9,18,32,55,90].map(number=>`<span>${number}</span>`).join('')}</span></span><span class="role-kicker">Tus cartones, tu suerte</span><strong>Jugador</strong><span>Dispositivo móvil. Elige tu personaje y prepárate para marcar.</span></button>
     </div><p class="view-footnote">Una misma Wi-Fi. Una buena partida.</p>`;
 }
@@ -60,7 +63,7 @@ export function tvGame(state) {
   const players = state.players.filter(player => player.playing && player.online && (state.phase === 'drawing' || !player.continued));
   return `${toolbar(state.phase === 'drawing' ? 'La suerte está girando…' : '¿Lo tienes?', `${state.called.length} de 90 bolas`, '<button class="btn secondary cancel-button" id="cancel">Cancelar partida</button>')}
     <div class="screen-body tv-layout"><div class="board-space"><section class="number-board" aria-label="Tablero de números extraídos">${Array.from({length:90},(_,i) => `<span class="board-ball ${state.called.includes(i+1) ? 'called' : ''} ${state.current === i+1 ? 'current' : ''}" aria-label="${state.called.includes(i+1) ? `Ha salido el ${i+1}` : 'Bola sin salir'}">${state.called.includes(i+1) ? i+1 : ''}</span>`).join('')}</section></div>
-      <section class="presenter-section"><div id="presenter-stage" class="presenter-stage"><img src="./assets/presenter.webp" alt="Presentador azul sentado junto al bombo"></div><div class="ball-caption"><span class="current-ball">${state.current ?? '•••'}</span><p>${state.phase === 'drawing' ? 'Sacando la próxima bola' : 'Marca tus números y pulsa Continuar'}</p></div></section></div>
+      <section class="presenter-section">${presenterStage()}<div class="ball-caption"><span class="current-ball">${state.current ?? '•••'}</span><p>${state.phase === 'drawing' ? 'Sacando la próxima bola' : 'Marca tus números y pulsa Continuar'}</p></div></section></div>
     <section class="waiting-panel"><div class="panel-heading"><h2>${state.phase === 'drawing' ? 'Jugando' : players.length ? 'Esperando a…' : 'Esperando que vuelva un jugador'} <span class="count">${players.length}</span></h2></div>${scroller(players,'waiting',{horizontal:true})}</section>`;
 }
 export function pendingOnCard(state,index) {
@@ -84,6 +87,6 @@ export function playerGame(state,selectedCard) {
 export function resultsScreen(state) {
   const tv = state.role === 'tv', won = state.winners.includes(state.me?.id), winners = state.players.filter(player => state.winners.includes(player.id));
   return `<div class="results-heading ${tv || won ? 'winner' : 'loser'}"><span class="eyebrow">Una buena partida merece otra</span><h1>${tv ? '¡Bingo!' : won ? '¡Ganaste!' : 'Perdiste…'}</h1><p>${winners.length > 1 ? '¡La suerte se comparte! Estos son los ganadores.' : 'El primer cartón completo ya tiene nombre.'}</p></div>
-    <div class="screen-body results-cards">${scroller(winners,'winners')}</div>
+    <div class="screen-body results-cards ${tv && state.settings.effects ? 'has-presenter' : ''}">${scroller(winners,'winners')}${tv && state.settings.effects ? presenterStage('results-presenter') : ''}</div>
     <div class="results-actions">${tv ? '<button class="btn secondary" id="reset">Volver a selección</button><button class="btn green" id="restart">Otra partida ↗</button>' : '<p>La televisión prepara la revancha o vuelve a selección para todos.</p>'}</div>`;
 }
