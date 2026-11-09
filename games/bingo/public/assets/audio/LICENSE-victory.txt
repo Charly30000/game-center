@@ -1,0 +1,13 @@
+Hyper-Ultra-Fanfare
+Author: Zane Little Music
+SPDX-License-Identifier: CC0-1.0
+
+Source: https://opengameart.org/content/hyper-ultra-fanfare
+Original download: https://opengameart.org/sites/default/files/sboe.wav
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Retrieved: 2026-11-09
+
+The author's original asset page identifies this work as CC0.
+The original sboe.wav is retained as art/audio/victory-fanfare.wav.
+The game version is converted to mono, 24 kHz, 16-bit PCM WAV.
+No change to the composition or duration. No endorsement is implied.

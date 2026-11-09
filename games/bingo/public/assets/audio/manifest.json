@@ -1,0 +1,83 @@
+[
+  {
+    "source": "card-place-1.ogg",
+    "file": "card-place-1.wav",
+    "sourceSha256": "d8f26c33a665dcbdcc6f632f6050bc9dd548feb0d4942d4547615926d3926810",
+    "sha256": "b040ea24cfdcea2470a2643b751de8d4c40bd5512fbb02a976e6727b56483f2a",
+    "duration": 0.709625,
+    "rms": 0.04048864625754987,
+    "peak": 0.8042360544204712
+  },
+  {
+    "source": "card-slide-1.ogg",
+    "file": "card-slide-1.wav",
+    "sourceSha256": "006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690",
+    "sha256": "01800b2a597ea36b6425c48d1b21b07bed3b570122224f644dafb1723727b754",
+    "duration": 0.611,
+    "rms": 0.04003391660617083,
+    "peak": 0.7285597920417786
+  },
+  {
+    "source": "chip-lay-1.ogg",
+    "file": "chip-lay-1.wav",
+    "sourceSha256": "4b2111252ccb64eed67f171e061053849cfbb29873536c03948646f244a3905c",
+    "sha256": "95d55a69293369d4d18aecf7590b7a09515f3540ddee061ec1f6c9a06e35daea",
+    "duration": 0.181375,
+    "rms": 0.04511735227537076,
+    "peak": 0.8022537231445312
+  },
+  {
+    "source": "confirmation_001.ogg",
+    "file": "confirmation_001.wav",
+    "sourceSha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a",
+    "sha256": "61546a250446f09ba578422bb337a03fc4c2edd1c38c6d4d9262ed55e2617e5a",
+    "duration": 0.2945833333333333,
+    "rms": 0.2696820565036978,
+    "peak": 0.8987977504730225
+  },
+  {
+    "source": "dice-shake-1.ogg",
+    "file": "dice-shake-1.wav",
+    "sourceSha256": "ba603441c857204dbe3ff3345902c7e1c3f523bf1bd314acf088609bc6c1e4e5",
+    "sha256": "90ff52b0edb97e2d9889aa3b0ac206b4fc1ba56bce994334255dac690045e1be",
+    "duration": 1.4875,
+    "rms": 0.025602262184898177,
+    "peak": 0.987671971321106
+  },
+  {
+    "source": "error_001.ogg",
+    "file": "error_001.wav",
+    "sourceSha256": "46e67425d16339772e8d328fb36a49426c9467418686e11beeb71ff84b0f6433",
+    "sha256": "fcd384071aaaf7d2f341a6ac50f4c4344ef4d325631d289c51cb212a949c5ce2",
+    "duration": 0.17266666666666666,
+    "rms": 0.10092221735986477,
+    "peak": 0.6429509520530701
+  },
+  {
+    "source": "jingles_PIZZI03.ogg",
+    "file": "jingles_PIZZI03.wav",
+    "sourceSha256": "88da900ec74a79fb845f2dcf2068383998833a9ee1b87a23f074924781af5700",
+    "sha256": "6e7ea788657a0a4ae350c4a84c59d5510db6605043e514bc01ff907c9e629760",
+    "duration": 1.1653333333333333,
+    "rms": 0.1933436120044665,
+    "peak": 0.6162736415863037
+  },
+  {
+    "source": "maximize_001.ogg",
+    "file": "maximize_001.wav",
+    "sourceSha256": "fd3e75e1de2f2fda90aceeacaeb0427ac8bddd3b07a6ce2a8f9ba923df3771f9",
+    "sha256": "c28ab406825a7bc7e73c3237636b77bec674641e4c12056319620b647b85426b",
+    "duration": 0.2612083333333333,
+    "rms": 0.2218383091555381,
+    "peak": 0.8061285614967346
+  },
+  {
+    "source": "victory-fanfare.wav",
+    "file": "victory-fanfare.wav",
+    "sourceSha256": "50a50dd396bcb98dc38d502432864f0f03694d802560a6683a876c16eba771f4",
+    "sha256": "d11bbaecd2c89718b18be9330b846b128a99c8c8cabb5dddc29faed24d8a8e73",
+    "duration": 6.124958333333334,
+    "rms": 0.15804227565245327,
+    "peak": 0.8633434772491455
+  }
+]

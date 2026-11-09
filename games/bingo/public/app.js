@@ -4,6 +4,7 @@ import { installViewportLayout } from './viewport.js';
 import { createCardScroller } from './auto-scroll.js';
 import { requestPlayerPortrait, requestPlayerOrientation, releasePlayerOrientation, restorePlayerFullscreen } from './orientation.js';
 import * as views from './views.js';
+import { createBingoAudio } from './bingo-audio.js';
 
 const app = document.querySelector('#app');
 const dialogs = document.querySelector('#dialogs');
@@ -14,10 +15,37 @@ const local = { view: 'choose', selectedCard: 0, name: '', avatar: 0, playerId: 
 const scroller = createCardScroller();
 let state, status = 'connecting', revoked = false, modal, modalFocus, toastTimer;
 let renderer, rendererModule, sceneGeneration = 0, noNumberNotice, celebratedRound;
-let rendererLoad, loadingSlot;
+let rendererLoad, loadingSlot, rendererFailed = false;
 let pointerActive = false, pendingRender = false;
 let appliedOrientation = null, profilePlayerId = null;
+const confirmedMarkSounds = new Set();
 const fitViewport = installViewportLayout(app);
+const soundButton = document.createElement('button');
+soundButton.id = 'bingo-sound'; soundButton.className = 'bingo-sound'; soundButton.hidden = true;
+connectionLabel.before(soundButton);
+const musicButton = document.createElement('button');
+musicButton.id = 'bingo-music'; musicButton.className = 'bingo-sound'; musicButton.hidden = true;
+soundButton.before(musicButton);
+const audio = createBingoAudio({onChange:updateSoundButton});
+function updateSoundButton() {
+  soundButton.hidden = !state || local.view !== 'session' || !['tv','player'].includes(state.role) || revoked;
+  soundButton.textContent = audio.muted ? '🔇' : '🔊';
+  const label = audio.muted ? 'Activar sonido del Bingo' : audio.unlocked ? 'Silenciar Bingo' : 'Activar sonido del Bingo';
+  soundButton.title = label; soundButton.setAttribute('aria-label',label);
+  soundButton.setAttribute('aria-pressed',String(!audio.muted && audio.unlocked));
+  musicButton.hidden = soundButton.hidden || state?.role !== 'tv';
+  musicButton.textContent = audio.musicEnabled ? '♫' : '♫̸';
+  const musicLabel = audio.musicEnabled ? 'Desactivar música de fondo' : 'Activar música de fondo';
+  musicButton.title = musicLabel; musicButton.setAttribute('aria-label',musicLabel);
+  musicButton.setAttribute('aria-pressed',String(audio.musicEnabled));
+}
+musicButton.addEventListener('click',() => audio.toggleMusic());
+soundButton.addEventListener('click',() => { if (!audio.unlocked && !audio.muted) audio.unlock(); else audio.toggle(); });
+document.addEventListener('pointerdown',() => audio.unlock(),{capture:true});
+document.addEventListener('keydown',event => { if (['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key)) audio.unlock(); },{capture:true});
+function syncAudio() {
+  if (state) audio.sync(state,{active:local.view === 'session' && !revoked,online:status === 'online',animated:!rendererFailed && Boolean(state.settings.effects && state.role === 'tv' && !matchMedia('(prefers-reduced-motion: reduce)').matches)});
+}
 
 // Una entrada de historial por pantalla real; nunca se reintroduce el estado
 // durante popstate ni se impide la navegación normal del navegador.
@@ -25,6 +53,7 @@ history.replaceState({ bingoView: 'choose' }, '', location.href);
 installRemoteNavigation({ preferred: () => app.querySelector('[data-role="tv"],#new-player,#continue:not(:disabled),button:not(:disabled)'), onBack: handleBack });
 
 function toast(error) {
+  audio.feedback('error');
   notice.className = 'toast'; notice.textContent = error?.message || String(error);
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { notice.className = ''; notice.textContent = ''; }, 6000);
 }
@@ -38,7 +67,7 @@ const net = createConnection({
     if (next.me && next.me.id !== local.playerId) {
       local.playerId = next.me.id; local.name = next.me.name; local.avatar = next.me.avatar;
     }
-    if (next.roundId !== previous?.roundId) local.selectedCard = 0;
+    if (next.roundId !== previous?.roundId) { local.selectedCard = 0; confirmedMarkSounds.clear(); }
     if (next.phase !== previous?.phase && modal?.kind !== 'takeover') closeModal();
     if (next.role === 'guest' && previous?.role !== 'guest' && previous && local.view === 'session') {
       local.view = 'choose'; local.editing = false;
@@ -48,16 +77,16 @@ const net = createConnection({
       local.view = 'choose'; history.replaceState({bingoView:'choose'},'',location.href);
     }
     if (previous?.role === 'player' && next.role !== 'player') { releasePlayerOrientation(); appliedOrientation = null; }
-    state = next; syncPlayerOrientation(); render(); showNoNumberNotice();
+    state = next; syncAudio(); syncPlayerOrientation(); render(); showNoNumberNotice();
     if (next.phase === 'results' && next.role === 'tv' && next.settings.effects && celebratedRound !== next.roundId && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       celebratedRound = next.roundId;
       const splash = document.createElement('div'); splash.className = 'bingo-splash'; splash.setAttribute('aria-hidden','true'); splash.innerHTML = '<span>✦ ✳ ✦</span><strong>¡Bingo!</strong><span>✳ ✦ ✳</span>';
       document.body.append(splash); setTimeout(() => splash.remove(),1600);
     }
   },
-  onStatus(next) { status = next; renderConnection(); },
+  onStatus(next) { status = next; syncAudio(); renderConnection(); },
   onError: toast,
-  onRevoked() { revoked = true; renderer?.dispose(); renderer = null; render(); },
+  onRevoked() { revoked = true; syncAudio(); renderer?.dispose(); renderer = null; render(); },
 });
 
 function renderConnection() {
@@ -88,10 +117,21 @@ document.addEventListener('fullscreenchange',() => { updateFullscreenButton(); f
 function goTo(view, replace = false) {
   local.view = view;
   if (history.state?.bingoView !== view) history[replace ? 'replaceState' : 'pushState']({ bingoView: view },'',location.href);
-  syncPlayerOrientation(); render(); showNoNumberNotice();
+  syncAudio(); syncPlayerOrientation(); render(); showNoNumberNotice();
 }
 async function action(type,payload = {}) {
-  try { await net.request(type,{...payload,roundId:state?.roundId,turn:state?.turn}); return true; }
+  const actionRound = state?.roundId;
+  const previousMarks = state?.me?.marks?.flat().length;
+  try {
+    await net.request(type,{...payload,roundId:state?.roundId,turn:state?.turn});
+    if (state?.roundId === actionRound && local.view === 'session') {
+      const markKey = `${actionRound}:${payload.card}:${payload.number}`;
+      if (type === 'mark' && state?.me?.marks?.flat().length > previousMarks && !confirmedMarkSounds.has(markKey)) { confirmedMarkSounds.add(markKey); audio.feedback('mark'); }
+      if (type === 'profile') audio.feedback('ready');
+      if (type === 'continue') audio.feedback('continue');
+    }
+    return true;
+  }
   catch (error) { toast(error); return false; }
 }
 async function enterSession(payload) {
@@ -139,6 +179,7 @@ window.addEventListener('popstate', async event => {
   const target = event.state?.bingoView;
   local.view = target === 'players' && state?.phase !== 'lobby' ? 'players' : 'choose';
   local.editing = false; closeModal();
+  syncAudio();
   if (state?.role !== 'guest') await net.identify({role:'guest'}).catch(toast);
   render();
 });
@@ -175,7 +216,7 @@ function render() {
   profilePlayerId = screen === 'profile' ? state.me.id : null;
   if (oldStage && document.querySelector('#presenter-stage')) document.querySelector('#presenter-stage').replaceWith(oldStage);
   bind(); if (screen !== 'profile') restoreFocus(app,focus);
-  fitViewport(); scroller.mount(app); updateScene(); renderConnection();
+  fitViewport(); scroller.mount(app); updateScene(); syncAudio(); renderConnection();
   if (modal?.kind === 'start') drawModal(false);
 }
 function updateProfileSelection() {
@@ -201,7 +242,7 @@ function bind() {
   app.querySelector('#reset')?.addEventListener('click',() => action('reset'));
   app.querySelector('#edit-profile')?.addEventListener('click',() => { local.editing = true; render(); });
   app.querySelector('#player-name')?.addEventListener('input',event => { local.name = event.target.value; });
-  app.querySelectorAll('[data-avatar]').forEach(button => button.onclick = () => { document.querySelector('#player-name')?.blur(); local.avatar = Number(button.dataset.avatar); updateProfileSelection(); });
+  app.querySelectorAll('[data-avatar]').forEach(button => button.onclick = () => { document.querySelector('#player-name')?.blur(); local.avatar = Number(button.dataset.avatar); audio.feedback('select'); updateProfileSelection(); });
   app.querySelector('#profile')?.addEventListener('submit',async event => {
     event.preventDefault();
     local.name = local.name.normalize('NFKC').trim().replace(/\s+/gu,' ');
@@ -209,7 +250,7 @@ function bind() {
     if ([...local.name].length < 3 || [...local.name].length > 40) { toast('El nombre debe tener entre 3 y 40 caracteres.'); return; }
     if (await action('profile',{name:local.name,avatar:local.avatar})) { local.editing = false; render(); }
   });
-  app.querySelectorAll('[data-card]').forEach(button => button.onclick = () => { local.selectedCard = Number(button.dataset.card); render(); });
+  app.querySelectorAll('[data-card]').forEach(button => button.onclick = () => { local.selectedCard = Number(button.dataset.card); audio.feedback('select'); render(); });
   app.querySelectorAll('[data-number]').forEach(button => button.onclick = () => action('mark',{card:local.selectedCard,number:Number(button.dataset.number)}));
   app.querySelector('#continue')?.addEventListener('click',() => action('continue'));
 }
@@ -252,13 +293,13 @@ async function updateScene() {
     try {
       rendererModule ||= import('./presenter.js'); const module = await rendererModule;
       if (generation !== sceneGeneration || !slot.isConnected) return;
-      const mounted = await module.mountPresenter(slot);
+      const mounted = await module.mountPresenter(slot,{audio,onUnavailable:() => { rendererFailed = true; renderer = null; syncAudio(); }});
       if (generation !== sceneGeneration || !slot.isConnected) { mounted.dispose(); return; }
-      renderer = mounted; renderer.update(state);
-    } catch { /* Si la carga o WebGL falla, permanece la ilustración estática. */ }
-    finally { if (rendererLoad === pending) { rendererLoad = null; loadingSlot = null; } }
+      renderer = mounted; rendererFailed = false; syncAudio(); renderer.update(state);
+    } catch { rendererFailed = true; /* Si la carga o WebGL falla, permanece la ilustración estática con audio. */ }
+    finally { if (rendererLoad === pending) { rendererLoad = null; loadingSlot = null; syncAudio(); } }
   })();
   rendererLoad = pending;
 }
-window.addEventListener('pagehide',() => { sceneGeneration++; scroller.stop(); renderer?.dispose(); net.stop(); });
+window.addEventListener('pagehide',() => { sceneGeneration++; scroller.stop(); audio.dispose(); renderer?.dispose(); net.stop(); });
 window.addEventListener('pageshow',event => { if (event.persisted) location.reload(); });

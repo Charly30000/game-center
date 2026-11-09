@@ -27,7 +27,7 @@ export function showBingoBall(number,options) {
 }
 
 // Separado de WebGL: el mismo controlador se verifica con GLTFLoader en Node.
-export function createBingoCharacter(gltf,{camera,autoPlay=true,onAnimationChange=()=>{}}={}) {
+export function createBingoCharacter(gltf,{camera,autoPlay=true,onAnimationChange=()=>{},onAnimationFrame=()=>{},speech}={}) {
   const root = gltf.scene;
   if (!root) throw new Error('El GLB no contiene una escena.');
   const clips = new Map(gltf.animations.map(clip=>[clip.name,clip]));
@@ -170,8 +170,16 @@ export function createBingoCharacter(gltf,{camera,autoPlay=true,onAnimationChang
       for(const material of ballMaterials){material.transparent=true;material.opacity=opacity;material.emissive?.setRGB(glow*.9,glow*.5,glow*.04);material.emissiveIntensity=1.5;}
       if(time>=1.05)removeBingoBall();
     }
-    if(currentName==='Talk'||currentName==='ShowBall'){
-      const viseme=sampleViseme(announcement,current.time/current.getClip().duration);jaw.scale.x=viseme.width;jaw.scale.y=viseme.open;
+    onAnimationFrame(currentName,current?.time??0);
+    const spoken=speech?.();
+    if(currentName==='Talk'||currentName==='ShowBall'||currentName==='Celebrate'&&spoken?.pending){
+      const viseme=spoken??sampleViseme(announcement,current.time/current.getClip().duration);
+      jaw.scale.x=viseme.width;jaw.scale.y=viseme.open;
+      // Mantener la pose final mientras acaba la frase; nunca retrasar el servidor.
+      if(currentName!=='Celebrate') {
+        if(viseme.pending&&pendingFinish?.action===current)pendingFinish=null;
+        else if(!viseme.pending&&current.paused&&followup)pendingFinish={action:current,next:followup};
+      }
     }
     for (let i=retiring.length-1;i>=0;i--) {
       retiring[i].remaining-=delta;

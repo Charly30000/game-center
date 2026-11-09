@@ -4,6 +4,10 @@ body { height: var(--visible-height); min-height: 0; background: var(--paper); }
 .brand { font-size: 20px; }
 .brand-icon { width: 30px; height: 30px; font-size: 21px; }
 .header-right { gap: 12px; }
+.bingo-sound { flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #d8d4c7; border-radius: 50%; background: #fffdf8; font-size: 21px; line-height: 1; }
+@media (max-width: 450px) { .header-right:has(#bingo-music:not([hidden])) #connection span:last-child { display: none; } }
+@media (max-width: 650px) { .header-right { gap: 5px; } .header-right:has(.bingo-sound:not([hidden])) .game-label { display: none; } }
+@media (max-height: 550px) and (orientation: landscape) { body:has(.bingo-sound:not([hidden])) { --game-header-height: 46px; } }
 .game-label { color: #626a60; font-size: 14px; }
 .pill { font-size: 12px; padding: 7px 11px; }
 .offline .dot { background: #bd8427; }

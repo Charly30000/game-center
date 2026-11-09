@@ -28,7 +28,7 @@ El servidor envía `drawDurationMs` y `drawEndsAt`: la extracción dura cinco se
 
 En resultados, `Celebrate` continúa en bucle hasta abandonar esa pantalla o empezar otra partida. Los cuatro bucles corporales tienen poses coincidentes al principio y al final. Los pies permanecen apoyados salvo durante el salto.
 
-`bingo-speech.js` convierte los 90 números a texto español y genera articulación visual de labios. Durante la presentación anuncia visualmente «El número …». No reproduce audio.
+`bingo-speech.js` convierte los 90 números a texto español y genera visemas. En el juego, `bingo-audio.js` reproduce las locuciones locales y entrega la articulación al personaje según el reloj y la energía del WAV; la boca descansa en silencios y no habla sin voz. «¡Bingo! ¡Enhorabuena!» también articula durante `Celebrate`, manteniendo su bucle corporal; al terminar la voz suena la fanfarria. Los contactos de recogida y el destello siguen el tiempo real de los clips. La pose de presentación puede mantenerse hasta terminar una frase, sin retrasar un nuevo turno. La vista de revisión sin audio conserva la articulación visual de demostración. Véase [audio y sincronización](audio.md).
 
 ## Brazo, manivela y manos
 

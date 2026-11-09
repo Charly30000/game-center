@@ -3,10 +3,11 @@ import { loadBingoCharacter } from './bingo-character.js';
 import { createPresenterCamera,fitPresenterCamera } from './presenter-framing.js';
 import { createPresenterStage } from './presenter-stage.js';
 
-export async function mountPresenter(element) {
+export async function mountPresenter(element,{audio,onUnavailable=()=>{}}={}) {
   const viewport=element.querySelector('.presenter-viewport')||element;
   const scene=new THREE.Scene(),camera=createPresenterCamera();
-  const controller=await loadBingoCharacter({scene,camera});
+  const controller=await loadBingoCharacter({scene,camera,speech:audio?()=>audio.mouth():undefined,onAnimationFrame:(name,time)=>audio?.animation(name,time)});
+  const jaw=controller.root.getObjectByName('Jaw');
   if(!element.isConnected){controller.dispose();throw new Error('La escena ya se ha cerrado.');}
   let renderer,stage,observer,frame,disposed=false,previous=0;
   try{
@@ -30,6 +31,8 @@ export async function mountPresenter(element) {
       element.dataset.presenterAnimation=controller.currentAnimation||'';
       element.dataset.presenterTime=controller.animationTime.toFixed(3);
       element.dataset.presenterBall=String(controller.selectedBall?.userData.number??'');
+      element.dataset.presenterMouth=jaw.scale.y.toFixed(3);
+      element.dataset.presenterSpeaking=String(audio?.mouth().speaking??false);
     }
     function dispose(){
       if(disposed)return;disposed=true;cancelAnimationFrame(frame);observer?.disconnect();
@@ -37,8 +40,9 @@ export async function mountPresenter(element) {
       delete element.dataset.presenterModel;delete element.dataset.presenterAnimation;
       delete element.dataset.presenterTime;delete element.dataset.presenterBall;
       delete element.dataset.presenterCoverage;
+      delete element.dataset.presenterMouth;delete element.dataset.presenterSpeaking;
     }
-    renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();dispose();},{once:true});
+    renderer.domElement.addEventListener('webglcontextlost',event=>{if(disposed)return;event.preventDefault();dispose();onUnavailable();},{once:true});
     renderer.domElement.setAttribute('aria-label','Anfitrión de Bingo con bombo dorado');
     viewport.append(renderer.domElement);element.dataset.presenterModel='blender-v8';
     observer=new ResizeObserver(resize);observer.observe(viewport);resize();frame=requestAnimationFrame(animate);

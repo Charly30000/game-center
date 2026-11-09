@@ -1,5 +1,51 @@
 # Verificación
 
+## Reducción de música solo al cantar números — 9 de noviembre de 2026
+
+Pasan las 12 pruebas de coordinación de audio y música. Una regresión comprueba que bombo, recogida, estrellas e invitación a continuar no reducen el fondo; solo la reproducción de `number-*` activa la reducción, que se retira al finalizar el audio. La revisión de Chromium con Web Audio real también confirma volumen 0,25 durante el bombo y 0,05 durante el número cantado, conservando controles y tamaños. Las pausas en resultados, al silenciar o salir se mantienen.
+
+## Ajuste de audibilidad — 9 de noviembre de 2026
+
+Se eleva la ganancia de la música de 0,05 a 0,25 (aproximadamente +14 dB), manteniendo la pista y el control independiente. Durante voz o efectos se reduce a 0,05; se conserva la recuperación suave. Las dos pruebas de música verifican los nuevos niveles, el bucle continuo, la reanudación y las cancelaciones. No se cambia el volumen de las locuciones ni de los efectos.
+
+## Música ambiental menos repetitiva — 9 de noviembre de 2026
+
+Se sustituye el MP3 por **Contemplation**, de Joth (CC0), sin modificar los controles ni la voz. La pista nueva dura aproximadamente 120,059 segundos, frente a los 19,383 segundos anteriores. Pasan las dos pruebas de música y la revisión de Chromium con reproducción y decodificación reales, prioridad de voces, activación independiente, parada en resultados y cinco tamaños de pantalla.
+
+La comparación de señal decodificada a 24 kHz dio RMS 0,2542 para la anterior y 0,03558 para la nueva; con las ganancias respectivas 0,075 y 0,05, el RMS de salida estimado baja de 0,01907 a 0,001779. Es una medida eléctrica aproximada, no una medida LUFS ni una garantía de comodidad subjetiva en todos los altavoces. Se conserva la reducción adicional durante las locuciones, ahora a 0,008. Las pruebas se ejecutaron en contenedores limitados a una CPU y 512 MB, sin usar partidas reales. Informes temporales en `artifacts/music/`.
+
+## Música independiente de TV — 9 de noviembre de 2026
+
+Pasan las 13 pruebas específicas de audio, música y GLB. La ampliación verifica un único bucle, volumen reducido durante primer plano, control independiente, reanudación desde la posición anterior, ausencia de descarga estando inactivo y cancelación de una reproducción pendiente después de salir.
+
+`tests/browser/music.mjs` pasó con Chromium y Web Audio reales en Docker: decodifica el MP3 (19,383 s), inicia un único bucle de TV, reduce el volumen al anunciar un número, permite desactivar música y seguir anunciando números, reactiva el bucle y lo detiene al mostrar resultados. El control se oculta en jugador. Se comprobaron ambos botones de al menos 44×44 píxeles dentro de pantalla en 1280×720, 667×375, 568×320, 390×844 y 320×568. Informe y captura en `artifacts/music/`. La música añade un canal de fondo al canal de primer plano; la reducción de volumen da prioridad a la voz. No se ha realizado una escucha en equipos físicos.
+
+## Sustitución de la fanfarria — 9 de noviembre de 2026
+
+Se sustituye exclusivamente la victoria por `victory-fanfare.wav`, conversión de **Hyper-Ultra-Fanfare** de Zane Little Music (CC0), de aproximadamente 6,125 segundos. Se retiran el original y el WAV de `jingles_PIZZI07`; la locución y el sonido de derrota conservan sus archivos y hashes.
+
+Pasan las once pruebas específicas de audio y GLB, incluidos manifiestos, victoria, derrota, empates, espectadores, interrupciones y fanfarria única. Una revisión focalizada con Chromium y Web Audio reales reproduce la locución completa (1,576 s), la fanfarria completa (6,125 s) y su selección para el móvil ganador. Se comprueba un máximo de una fuente simultánea y ninguna petición al sonido anterior. El informe temporal está en `artifacts/victory-audio-validation.json`; no se modifican partidas reales ni se realiza una escucha en altavoces físicos.
+
+La conversión inicial del WAV original agotó el límite de memoria por expandir los bytes a arrays JSON. Se corrigió la preparación para transferir base64 y se completó con un contenedor de una CPU y 512 MB. El original se convierte a mono a 24 kHz y 16 bits, sin recortar la composición. Créditos y fuente en [audio](audio.md).
+
+## Anuncio y resultados personales — 9 de noviembre de 2026
+
+Pasan **48 pruebas automatizadas** en Docker. La TV reproduce «¡Bingo! ¡Enhorabuena!» con ritmo más vivo y luego la fanfarria; los móviles participantes reciben victoria o derrota según `winners`. Se comprueban empates, espectadores, ausencia de repeticiones, nueva partida, cancelación de la fanfarria pendiente y fin sin ganadores (sin falso anuncio de bingo). El sonido de Continuar se descarta si su confirmación llega después del resultado, para no cortar la victoria. El GLB real articula la locución durante `Celebrate` sin detener su bucle.
+
+La revisión de Chromium con Web Audio y WebGL pasó con los **101 WAV** actuales (nueve efectos y 92 locuciones): locución de bingo seguida de una única fanfarria en TV, victoria y derrota diferenciadas en móvil, modo estático y cabecera en cinco tamaños. Los sonidos nuevos mantienen las licencias y procedencias descritas en [audio](audio.md). No se ha realizado una escucha en altavoces físicos de TV o móvil; la expresividad de la voz sintetizada puede diferir de una interpretación humana.
+
+## Audio y sincronización — 9 de noviembre de 2026
+
+Actualización posterior: se ha retirado el bip previo al anuncio (`glass_001`), tanto de reproducción como de precarga y recursos. `ShowBall` inicia directamente la locución a los 0,25 segundos. Pasan las ocho pruebas específicas de audio y del GLB con el inventario actualizado: ocho efectos y 91 locuciones (99 WAV). La revisión inicial descrita a continuación incluía todavía ese bip.
+
+Pasan **45 pruebas automatizadas** dentro de la imagen Docker actualizada. La ampliación comprueba exclusión entre voz y efectos, separación TV/móvil, marcas confirmadas, efectos recibidos desordenados, cancelación de descargas tardías, silencio, desconexión, pestaña oculta, modo estático, fanfarria única y los hashes de los 100 WAV. Un ensayo con el GLB real verifica que la mandíbula sigue la voz, descansa sin ella, mantiene la pose hasta terminar y cede inmediatamente a un nuevo turno.
+
+`tests/browser/audio.mjs` pasó con Web Audio y WebGL reales en Chromium dentro de Docker, con estados y WebSocket simulados. Decodificó los nueve efectos y las 91 locuciones; comprobó la secuencia `bombo → recogida → presentación → número 28 → estrellas → invitación`, el anuncio del 90 en modo estático, la fanfarria única y el silencio. Registró distintas aperturas de mandíbula durante la reproducción. En móvil, pulsar una casilla, cambiar de cartón y Continuar produjo únicamente sus tres respuestas locales. El altavoz y la cabecera caben en 1280×720, 667×375, 568×320, 390×844 y 320×568; se corrigió un recorte de medio píxel en horizontal.
+
+La revisión adicional `presenter.mjs --layout-only` pasó en 1280×720, 960×540, 800×480, 667×375, 568×320, 360×640 y 320×568 con las 90 bolas. Se inspeccionaron capturas de TV y móvil. Mediante MCP de Blender se consultaron los nueve clips de la fuente aprobada y sus intervalos, sin guardar ni cambiar el modelo. Los artefactos temporales están en `artifacts/audio/`.
+
+La revisión utilizó un único navegador limitado a una CPU y 768 MB, con pasarela interna sin puertos públicos ni partidas reales. No equivale a escuchar el resultado en altavoces de una TV física, probar Safari/iOS o medir sincronización fonética exacta. Las locuciones locales evitan depender de voces instaladas o de Internet; la articulación combina visemas aproximados y energía real del WAV. Véanse [audio y licencias](audio.md).
+
 ## Entorno y aislamiento
 
 Pruebas desde Windows con Docker Desktop y contenedores Linux. No se instalaron dependencias ni se cambiaron variables del sistema en Windows. La revisión de interfaz utiliza un Bingo independiente y una pasarela de pruebas sin acceso al socket Docker, expuestos en el puerto 3002. Las pruebas con estados inyectados solo modifican su propio navegador. Los servicios de otros proyectos no se modifican.

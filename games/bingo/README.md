@@ -52,4 +52,6 @@ Si una bola no está en ninguno de los cartones y no quedan números anteriores 
 
 El catálogo y el bingo comparten navegación direccional por posición: flechas para mover el foco, OK para activar y Atrás para cerrar una modal o regresar. Atrás durante una partida pide confirmación para cambiar de pantalla; la cancelación es una acción independiente. El historial del navegador no se bloquea ni se reintroducen entradas al retroceder. Ver [compatibilidad de mandos](../../docs/remote-controls.md).
 
+El [audio del Bingo](docs/audio.md) reparte bombo, locuciones españolas y celebración en TV, y respuestas a acciones propias en móvil. Utiliza efectos CC0 y locuciones locales; el altavoz permite silenciar cada dispositivo. La voz y la boca siguen el mismo reloj de reproducción, sin retrasar los turnos.
+
 Ver [interfaz, sesiones y orientación](docs/interface.md), [protocolo](docs/protocol.md), [operación](docs/operations.md), [recursos](art/README.md), [presentador de Blender y controlador Three.js](docs/blender-character.md) y [pruebas](docs/verification.md).

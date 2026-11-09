@@ -75,3 +75,17 @@ docker rm gamecenter-catalog-export
 ## Configuración del catálogo
 
 TICKET_COUNT define el número de cartones que prepara la construcción si falta el catálogo. No afecta a una partida ya iniciada.
+
+## Revisar el audio
+
+`npm test` incluye coordinación de sonidos por rol, interrupciones, silencio, integridad de los 101 WAV, resultados personales (victoria, empate, derrota y espectadores) y articulación del GLB con voz real o silencio, incluida la celebración. Los efectos y las locuciones ya están preparados: no se necesita instalar Piper, codecs ni un sintetizador en el servidor.
+
+Con la pasarela de revisión aislada anterior disponible y la imagen del navegador reconstruida, ejecutar una sola prueba de navegador:
+
+```powershell
+docker run --rm --network gamecenter-internal --cpus=1 --memory=768m --shm-size=128m -e BASE_URL=http://gamecenter-model-review:3000 --mount "type=bind,source=$((Get-Location).Path)\artifacts,target=/artifacts" gamecenter-browser-tests:local node audio.mjs
+```
+
+La prueba inyecta su propio estado y WebSocket: no identifica jugadores ni cambia una partida real. Comprueba reproducción y decodificación con Web Audio, secuencia de clips y boca, modo estático, fanfarria única, silencio, respuestas de jugador y cabecera en varios tamaños. Guarda capturas e informe en `artifacts/audio/`, fuera del commit. La [documentación de audio](audio.md) explica procedencia y regeneración de WAV.
+
+Con la misma pasarela e imagen del navegador, `node music.mjs` revisa específicamente el bucle de TV, la prioridad de la voz, el botón independiente y sus tamaños. Utiliza el mismo `BASE_URL` y montaje de `artifacts` del comando anterior, cambiando únicamente el nombre del script; guarda sus resultados en `artifacts/music/`.

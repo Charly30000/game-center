@@ -1,5 +1,7 @@
 # Recursos visuales
 
+Los sonidos exclusivos del juego, sus originales, locuciones y licencias se describen en [audio del Bingo](../docs/audio.md) y en los [créditos](../public/assets/audio/CREDITS.md).
+
 ## Dirección artística
 
 Juegos de sobremesa contemporáneos: papel cálido, terracota, verde petróleo, mostaza y formas redondeadas. El anfitrión es un señor mayor de chaleco y pajarita rojos, gafas redondas, bigote y pelo gris, junto a un bombo dorado. Las ilustraciones 2D y el modelo 3D representan al mismo personaje. Los cartones tienen un estilo tradicional modernizado: formato horizontal 3×9, borde doble, números de imprenta, tramado en huecos y marcas perforadas. Colores, pestañas, contadores y etiquetas accesibles identifican cada cartón.

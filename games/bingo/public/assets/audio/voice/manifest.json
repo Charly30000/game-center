@@ -1,0 +1,922 @@
+[
+  {
+    "file": "bingo.wav",
+    "text": "¡Bingo! ¡Enhorabuena!",
+    "bytes": 69564,
+    "sampleRate": 22050,
+    "duration": 1.5764172335600908,
+    "rms": 0.28783836791663575,
+    "peak": 0.999969482421875,
+    "sha256": "7087f6233c2e50f416527358ba411706db8eecfdaa5f9e6d5f548bfd53f1171f"
+  },
+  {
+    "file": "continue.wav",
+    "text": "Marca tus números y pulsa continuar.",
+    "bytes": 96984,
+    "sampleRate": 22050,
+    "duration": 2.198185941043084,
+    "rms": 0.1463724984212861,
+    "peak": 0.999969482421875,
+    "sha256": "8c75ad5325945c5636229025d9915c609d98106c091f20d5d3cda586431e22a9"
+  },
+  {
+    "file": "number-01.wav",
+    "text": "El número uno.",
+    "bytes": 39128,
+    "sampleRate": 22050,
+    "duration": 0.8862585034013606,
+    "rms": 0.15351419648910733,
+    "peak": 0.99993896484375,
+    "sha256": "580c66ffe69dfaf621373638cf0ee997b5b489557f50eef91fa762cf75f5ee20"
+  },
+  {
+    "file": "number-02.wav",
+    "text": "El número dos.",
+    "bytes": 51928,
+    "sampleRate": 22050,
+    "duration": 1.1765079365079365,
+    "rms": 0.16213593854204336,
+    "peak": 0.999969482421875,
+    "sha256": "2fed4935577c350b4c53466a8709209c8bf0017041a5ee0b0a1ada3aa60bc602"
+  },
+  {
+    "file": "number-03.wav",
+    "text": "El número tres.",
+    "bytes": 52952,
+    "sampleRate": 22050,
+    "duration": 1.1997278911564626,
+    "rms": 0.15003812373193395,
+    "peak": 0.99993896484375,
+    "sha256": "c0b6f5d7a72886dc24bd28dfe9e4c941684682a203625e878d8244c135a93c34"
+  },
+  {
+    "file": "number-04.wav",
+    "text": "El número cuatro.",
+    "bytes": 57048,
+    "sampleRate": 22050,
+    "duration": 1.2926077097505668,
+    "rms": 0.1660846512317817,
+    "peak": 0.999969482421875,
+    "sha256": "26141249fd617f4f1015d6a13b9f41dd11c317ae3b936ebc7f23f5ac37ea02da"
+  },
+  {
+    "file": "number-05.wav",
+    "text": "El número cinco.",
+    "bytes": 53976,
+    "sampleRate": 22050,
+    "duration": 1.2229478458049887,
+    "rms": 0.1764318166740354,
+    "peak": 0.999969482421875,
+    "sha256": "f10ba625ffd4a3a93f2cd0f9ea4305d42e356bdad86dd4fb4ef539857065142d"
+  },
+  {
+    "file": "number-06.wav",
+    "text": "El número seis.",
+    "bytes": 58584,
+    "sampleRate": 22050,
+    "duration": 1.327437641723356,
+    "rms": 0.14454340837448457,
+    "peak": 0.999969482421875,
+    "sha256": "4f35f966367ad083f1f4b60cdd88628ddc26f0e20fe44e24fc46da3050d143fc"
+  },
+  {
+    "file": "number-07.wav",
+    "text": "El número siete.",
+    "bytes": 55000,
+    "sampleRate": 22050,
+    "duration": 1.2461678004535148,
+    "rms": 0.1466007519951484,
+    "peak": 0.999969482421875,
+    "sha256": "298661eeff9b24b0194e4ff6ca970b9671dc97d328971c3bf91e49e4b6f65f1d"
+  },
+  {
+    "file": "number-08.wav",
+    "text": "El número ocho.",
+    "bytes": 53464,
+    "sampleRate": 22050,
+    "duration": 1.2113378684807257,
+    "rms": 0.14741958415464607,
+    "peak": 0.999969482421875,
+    "sha256": "91503e54fd36427e5ca2c01b3296d0f2b569df3e4cb79295eade834cf8523887"
+  },
+  {
+    "file": "number-09.wav",
+    "text": "El número nueve.",
+    "bytes": 53976,
+    "sampleRate": 22050,
+    "duration": 1.2229478458049887,
+    "rms": 0.14654382625179999,
+    "peak": 0.999969482421875,
+    "sha256": "9d128a890d44c23ac23e8f947ee6f709ea2b6fcb8932639e8098ffd87387f008"
+  },
+  {
+    "file": "number-10.wav",
+    "text": "El número diez.",
+    "bytes": 51928,
+    "sampleRate": 22050,
+    "duration": 1.1765079365079365,
+    "rms": 0.182948042048348,
+    "peak": 0.999969482421875,
+    "sha256": "c027d3f809438a87d969af4619e6af8ee3d01d4963922151c089076ac28c7209"
+  },
+  {
+    "file": "number-11.wav",
+    "text": "El número once.",
+    "bytes": 51928,
+    "sampleRate": 22050,
+    "duration": 1.1765079365079365,
+    "rms": 0.1541309023647867,
+    "peak": 0.999969482421875,
+    "sha256": "bc67aab8c7c4b797b0ca2da83cb81d6e0308b4ab38f72b6a7b7dff4e8d0637ac"
+  },
+  {
+    "file": "number-12.wav",
+    "text": "El número doce.",
+    "bytes": 52440,
+    "sampleRate": 22050,
+    "duration": 1.1881179138321996,
+    "rms": 0.18572284627857197,
+    "peak": 0.999969482421875,
+    "sha256": "aeb415c8d1fe59583f751560ce263429cbd321ef37afd71844bab442b6dd32b7"
+  },
+  {
+    "file": "number-13.wav",
+    "text": "El número trece.",
+    "bytes": 54488,
+    "sampleRate": 22050,
+    "duration": 1.2345578231292518,
+    "rms": 0.1646960682827889,
+    "peak": 0.999969482421875,
+    "sha256": "70771f4acf21d277a63043f2a55a01604921852eaf7bbf796b8f82fd777b5cfd"
+  },
+  {
+    "file": "number-14.wav",
+    "text": "El número catorce.",
+    "bytes": 59096,
+    "sampleRate": 22050,
+    "duration": 1.339047619047619,
+    "rms": 0.1782640109849508,
+    "peak": 0.999969482421875,
+    "sha256": "cdf2a666229bb4dc2f252cd2db0c3fc56fe721c462e585f26efa0db166264175"
+  },
+  {
+    "file": "number-15.wav",
+    "text": "El número quince.",
+    "bytes": 56536,
+    "sampleRate": 22050,
+    "duration": 1.2809977324263038,
+    "rms": 0.18595439837225855,
+    "peak": 0.999969482421875,
+    "sha256": "c275f7e00199c4f8fd6713d46c88f0bd0c283ff37737f4f6cff42236e0292fc0"
+  },
+  {
+    "file": "number-16.wav",
+    "text": "El número dieciséis.",
+    "bytes": 68312,
+    "sampleRate": 22050,
+    "duration": 1.5480272108843538,
+    "rms": 0.18849516229829072,
+    "peak": 0.99993896484375,
+    "sha256": "44d026ed3513475a21a110e538c7fd82eba01da8b19983018228e8d35d14214f"
+  },
+  {
+    "file": "number-17.wav",
+    "text": "El número diecisiete.",
+    "bytes": 67288,
+    "sampleRate": 22050,
+    "duration": 1.5248072562358277,
+    "rms": 0.1846874332132638,
+    "peak": 0.999969482421875,
+    "sha256": "2e7823ba77bcb3b8831a3127fe825e7657e111ff8a53b95da60da1bb28dd978f"
+  },
+  {
+    "file": "number-18.wav",
+    "text": "El número dieciocho.",
+    "bytes": 65752,
+    "sampleRate": 22050,
+    "duration": 1.4899773242630385,
+    "rms": 0.183291786660405,
+    "peak": 0.999969482421875,
+    "sha256": "796c9fe5f55ca24f5ed93cd4e135cc9cc1a2bd32d2d6944e8848c91d558d6a5c"
+  },
+  {
+    "file": "number-19.wav",
+    "text": "El número diecinueve.",
+    "bytes": 67288,
+    "sampleRate": 22050,
+    "duration": 1.5248072562358277,
+    "rms": 0.21054170069929085,
+    "peak": 0.999969482421875,
+    "sha256": "9004b32a49e5b5d9e6f0d1385ba751d0cbf374a180c7fc6a4f43e7d1f6268545"
+  },
+  {
+    "file": "number-20.wav",
+    "text": "El número veinte.",
+    "bytes": 55000,
+    "sampleRate": 22050,
+    "duration": 1.2461678004535148,
+    "rms": 0.1558382354354081,
+    "peak": 0.999969482421875,
+    "sha256": "1747ddaf9217248955392b2acf34c39d53990116f4e95a698ec36eec65823e07"
+  },
+  {
+    "file": "number-21.wav",
+    "text": "El número veintiuno.",
+    "bytes": 59096,
+    "sampleRate": 22050,
+    "duration": 1.339047619047619,
+    "rms": 0.17415292683885122,
+    "peak": 0.999969482421875,
+    "sha256": "19fc292c08e2d96286d909594100d91bc61519a0e8f22a06a46568bcc7aa10c2"
+  },
+  {
+    "file": "number-22.wav",
+    "text": "El número veintidós.",
+    "bytes": 66776,
+    "sampleRate": 22050,
+    "duration": 1.5131972789115646,
+    "rms": 0.17621770790421898,
+    "peak": 0.999969482421875,
+    "sha256": "4aacd6a7abd1a483b7af854c3d501ce4a0f28af881e94ad5c5b4e35c2e6de9b4"
+  },
+  {
+    "file": "number-23.wav",
+    "text": "El número veintitrés.",
+    "bytes": 69848,
+    "sampleRate": 22050,
+    "duration": 1.582857142857143,
+    "rms": 0.15070654751119533,
+    "peak": 0.999969482421875,
+    "sha256": "dadbf182b4536ceab2fa09a647bb7e3e10fdb05b6c38ead407059a0527124e99"
+  },
+  {
+    "file": "number-24.wav",
+    "text": "El número veinticuatro.",
+    "bytes": 69848,
+    "sampleRate": 22050,
+    "duration": 1.582857142857143,
+    "rms": 0.17516800183707715,
+    "peak": 0.999969482421875,
+    "sha256": "018b383c9d9494ed17676f5a1a0a706f465d60387654005d72e4a1e955b9cc08"
+  },
+  {
+    "file": "number-25.wav",
+    "text": "El número veinticinco.",
+    "bytes": 70360,
+    "sampleRate": 22050,
+    "duration": 1.5944671201814058,
+    "rms": 0.17158003907258923,
+    "peak": 0.999969482421875,
+    "sha256": "25d085322e3ad90dc5f75517c506c0171c1e9542300b7c2ac11282c2a11ceb53"
+  },
+  {
+    "file": "number-26.wav",
+    "text": "El número veintiséis.",
+    "bytes": 70360,
+    "sampleRate": 22050,
+    "duration": 1.5944671201814058,
+    "rms": 0.1728584303247581,
+    "peak": 0.999969482421875,
+    "sha256": "29845e2bdd3f3da5f02f9f11ea4a27f90e1bb6b9e12bdb981656e378b5fd2484"
+  },
+  {
+    "file": "number-27.wav",
+    "text": "El número veintisiete.",
+    "bytes": 71896,
+    "sampleRate": 22050,
+    "duration": 1.629297052154195,
+    "rms": 0.15861601665269617,
+    "peak": 0.99993896484375,
+    "sha256": "a980d34de5035bea5f0c33e29f01fb8431daa4832761a16d790ecb5ae1cd597f"
+  },
+  {
+    "file": "number-28.wav",
+    "text": "El número veintiocho.",
+    "bytes": 67800,
+    "sampleRate": 22050,
+    "duration": 1.5364172335600907,
+    "rms": 0.15252112355310557,
+    "peak": 0.99993896484375,
+    "sha256": "ec984ad0c4cd1606d28b48030786f6afd336cfa7e656e22861e0600339c30a17"
+  },
+  {
+    "file": "number-29.wav",
+    "text": "El número veintinueve.",
+    "bytes": 69336,
+    "sampleRate": 22050,
+    "duration": 1.57124716553288,
+    "rms": 0.1785222428633878,
+    "peak": 0.999969482421875,
+    "sha256": "6d66cd1c1645784c6e040003cc6a67fb219f5cb0226f7af7e4eb4a4b19a0d4b5"
+  },
+  {
+    "file": "number-30.wav",
+    "text": "El número treinta.",
+    "bytes": 57560,
+    "sampleRate": 22050,
+    "duration": 1.3042176870748299,
+    "rms": 0.16508664020584923,
+    "peak": 0.999969482421875,
+    "sha256": "499eeab555c3b1cd137ab20f602a4cad6613c6deb645fa5ebd2551c83dc2b3be"
+  },
+  {
+    "file": "number-31.wav",
+    "text": "El número treinta y uno.",
+    "bytes": 66776,
+    "sampleRate": 22050,
+    "duration": 1.5131972789115646,
+    "rms": 0.16434682232434442,
+    "peak": 0.99993896484375,
+    "sha256": "bfb65d15494b7d1715867e0cbec989eedf63a6edc95c0e80b75b0cca4722e42e"
+  },
+  {
+    "file": "number-32.wav",
+    "text": "El número treinta y dos.",
+    "bytes": 73432,
+    "sampleRate": 22050,
+    "duration": 1.6641269841269841,
+    "rms": 0.182402932413296,
+    "peak": 0.999969482421875,
+    "sha256": "e73a9d6e07d08c29cb702a27a14cd5b415a02e2fea63275f1af249b8926ed260"
+  },
+  {
+    "file": "number-33.wav",
+    "text": "El número treinta y tres.",
+    "bytes": 82136,
+    "sampleRate": 22050,
+    "duration": 1.8614965986394558,
+    "rms": 0.1617895605002694,
+    "peak": 0.999969482421875,
+    "sha256": "4365d37b91b9a4511f3c52da12556dd16ba3c6ec5ee7fe6e2489ebddad4cbb55"
+  },
+  {
+    "file": "number-34.wav",
+    "text": "El número treinta y cuatro.",
+    "bytes": 81624,
+    "sampleRate": 22050,
+    "duration": 1.8498866213151928,
+    "rms": 0.16305941792973402,
+    "peak": 0.99993896484375,
+    "sha256": "d99aa83fb94bbe4cb7bc54cf53232d6784cdacbea7265b71dcd9e21ef4c09d92"
+  },
+  {
+    "file": "number-35.wav",
+    "text": "El número treinta y cinco.",
+    "bytes": 79064,
+    "sampleRate": 22050,
+    "duration": 1.7918367346938775,
+    "rms": 0.15098676659449023,
+    "peak": 0.99993896484375,
+    "sha256": "0c6eb3bd8079e12c48685fc0a95ce02602e247c349b48a5ab66ac6b3d0385b54"
+  },
+  {
+    "file": "number-36.wav",
+    "text": "El número treinta y seis.",
+    "bytes": 85720,
+    "sampleRate": 22050,
+    "duration": 1.942766439909297,
+    "rms": 0.161421141896644,
+    "peak": 0.99993896484375,
+    "sha256": "27d5696aed6e7fa68c2deb97ffdb32829d0978bc3aa652f1c500a503e3dda998"
+  },
+  {
+    "file": "number-37.wav",
+    "text": "El número treinta y siete.",
+    "bytes": 79064,
+    "sampleRate": 22050,
+    "duration": 1.7918367346938775,
+    "rms": 0.1610879220828322,
+    "peak": 0.999969482421875,
+    "sha256": "ebb33b3e431822778905c267da55f0cd74379e8417c7a4c45465260ba85d4089"
+  },
+  {
+    "file": "number-38.wav",
+    "text": "El número treinta y ocho.",
+    "bytes": 76504,
+    "sampleRate": 22050,
+    "duration": 1.7337868480725624,
+    "rms": 0.17247651939218486,
+    "peak": 0.99993896484375,
+    "sha256": "d8cdadcf96f4e9d088af064626be66f57c7d05d0495f8d98985214e368ccccb9"
+  },
+  {
+    "file": "number-39.wav",
+    "text": "El número treinta y nueve.",
+    "bytes": 84184,
+    "sampleRate": 22050,
+    "duration": 1.907936507936508,
+    "rms": 0.17492014222445812,
+    "peak": 0.99993896484375,
+    "sha256": "05bb8e75e0eacc48c6acb8c7892ca174b262bcfa7ffff45ca25ef2b6a9a2ed71"
+  },
+  {
+    "file": "number-40.wav",
+    "text": "El número cuarenta.",
+    "bytes": 59096,
+    "sampleRate": 22050,
+    "duration": 1.339047619047619,
+    "rms": 0.18639155296890084,
+    "peak": 0.99993896484375,
+    "sha256": "b882910525d8eb69f5957f9c304d16ca862ff052bc997d74778164b492f38b6b"
+  },
+  {
+    "file": "number-41.wav",
+    "text": "El número cuarenta y uno.",
+    "bytes": 69848,
+    "sampleRate": 22050,
+    "duration": 1.582857142857143,
+    "rms": 0.16029025338684752,
+    "peak": 0.999969482421875,
+    "sha256": "e02b622bd54b04915d4d1412f02d5674cff1a81ac56ae3c54100a199820adb67"
+  },
+  {
+    "file": "number-42.wav",
+    "text": "El número cuarenta y dos.",
+    "bytes": 78040,
+    "sampleRate": 22050,
+    "duration": 1.7686167800453514,
+    "rms": 0.16598464867731683,
+    "peak": 0.999969482421875,
+    "sha256": "562fa43aba0576de6ae8fde1e2abdeb126de2773bf2d123b11a9981b343136b9"
+  },
+  {
+    "file": "number-43.wav",
+    "text": "El número cuarenta y tres.",
+    "bytes": 82648,
+    "sampleRate": 22050,
+    "duration": 1.8731065759637189,
+    "rms": 0.16895479877498715,
+    "peak": 0.999969482421875,
+    "sha256": "366afa2be106b1236b090f12df5667cb16dd156135d11d47429d9256621aebf2"
+  },
+  {
+    "file": "number-44.wav",
+    "text": "El número cuarenta y cuatro.",
+    "bytes": 78040,
+    "sampleRate": 22050,
+    "duration": 1.7686167800453514,
+    "rms": 0.17443765595199176,
+    "peak": 0.999969482421875,
+    "sha256": "56346775a28b7b8656e9ddcd5879601031bd8dd737132344c01168abda44932a"
+  },
+  {
+    "file": "number-45.wav",
+    "text": "El número cuarenta y cinco.",
+    "bytes": 84184,
+    "sampleRate": 22050,
+    "duration": 1.907936507936508,
+    "rms": 0.18278872023223694,
+    "peak": 0.999969482421875,
+    "sha256": "4aa5a08b1345ad8a3ae6e47060dac47368f5d97e0e52a1d73ed341ed7eb68012"
+  },
+  {
+    "file": "number-46.wav",
+    "text": "El número cuarenta y seis.",
+    "bytes": 79576,
+    "sampleRate": 22050,
+    "duration": 1.8034467120181406,
+    "rms": 0.1685996280270745,
+    "peak": 0.999969482421875,
+    "sha256": "33445d1667c61145000e40a3f28c9c2cfd8043e7f91da5323142f5d5576bd50d"
+  },
+  {
+    "file": "number-47.wav",
+    "text": "El número cuarenta y siete.",
+    "bytes": 81624,
+    "sampleRate": 22050,
+    "duration": 1.8498866213151928,
+    "rms": 0.17753490298108618,
+    "peak": 0.999969482421875,
+    "sha256": "c762df8fc268d0da3b0b3cd48b230e56d62ae87e1226582fcac8e563d8e811b5"
+  },
+  {
+    "file": "number-48.wav",
+    "text": "El número cuarenta y ocho.",
+    "bytes": 79064,
+    "sampleRate": 22050,
+    "duration": 1.7918367346938775,
+    "rms": 0.16873247893851828,
+    "peak": 0.99993896484375,
+    "sha256": "cfbfce16055d0ede9fa0657864509de2002409ae7e68b5778b492bf74e2defb0"
+  },
+  {
+    "file": "number-49.wav",
+    "text": "El número cuarenta y nueve.",
+    "bytes": 81624,
+    "sampleRate": 22050,
+    "duration": 1.8498866213151928,
+    "rms": 0.20973778968010154,
+    "peak": 0.999969482421875,
+    "sha256": "9966532ed28a8ef313889c153526a5f39ee56e1a86480bcf5b3493fe785c14a9"
+  },
+  {
+    "file": "number-50.wav",
+    "text": "El número cincuenta.",
+    "bytes": 63192,
+    "sampleRate": 22050,
+    "duration": 1.4319274376417233,
+    "rms": 0.1506025079726362,
+    "peak": 0.999969482421875,
+    "sha256": "8cae622afebc2a0fc5783db25ba6888946744dde590cba3bcc952c34c31ddb6b"
+  },
+  {
+    "file": "number-51.wav",
+    "text": "El número cincuenta y uno.",
+    "bytes": 74456,
+    "sampleRate": 22050,
+    "duration": 1.6873469387755102,
+    "rms": 0.17300227221594539,
+    "peak": 0.999969482421875,
+    "sha256": "571cbbb6e2beae9c58da9138282fa0c94f7c9bbcb5686e801657071e5808a518"
+  },
+  {
+    "file": "number-52.wav",
+    "text": "El número cincuenta y dos.",
+    "bytes": 77528,
+    "sampleRate": 22050,
+    "duration": 1.7570068027210883,
+    "rms": 0.18336953538625925,
+    "peak": 0.999969482421875,
+    "sha256": "9040b55f4306eb95badde936711c3445c86cbec025cece83f3dc4e377e1383b2"
+  },
+  {
+    "file": "number-53.wav",
+    "text": "El número cincuenta y tres.",
+    "bytes": 88280,
+    "sampleRate": 22050,
+    "duration": 2.0008163265306123,
+    "rms": 0.16053967112191952,
+    "peak": 0.99993896484375,
+    "sha256": "27eae6c904991f8c2b2a26ac10a34f0801e01c7b167dd69c0d3e2a01c68389ab"
+  },
+  {
+    "file": "number-54.wav",
+    "text": "El número cincuenta y cuatro.",
+    "bytes": 80600,
+    "sampleRate": 22050,
+    "duration": 1.8266666666666667,
+    "rms": 0.1620171114553193,
+    "peak": 0.99993896484375,
+    "sha256": "d585186b5597cde1e935747bd813aad71925e6f308f5d2689265885889e5e747"
+  },
+  {
+    "file": "number-55.wav",
+    "text": "El número cincuenta y cinco.",
+    "bytes": 86232,
+    "sampleRate": 22050,
+    "duration": 1.95437641723356,
+    "rms": 0.19000441841258198,
+    "peak": 0.999969482421875,
+    "sha256": "0cb98233c772407101d6984a40cff78e27b3f7f8bb723d6bf968b89242cc976e"
+  },
+  {
+    "file": "number-56.wav",
+    "text": "El número cincuenta y seis.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.16220394103336364,
+    "peak": 0.999969482421875,
+    "sha256": "41a8c7e409b2bc5c9dbec8ac13d47b10335491178bcdaba9b597a09b047761f5"
+  },
+  {
+    "file": "number-57.wav",
+    "text": "El número cincuenta y siete.",
+    "bytes": 84184,
+    "sampleRate": 22050,
+    "duration": 1.907936507936508,
+    "rms": 0.16746350759952,
+    "peak": 0.999969482421875,
+    "sha256": "878d3cdade5d74c4db01abd752fd8ac4c9f3ee97c772823024a72516471642d5"
+  },
+  {
+    "file": "number-58.wav",
+    "text": "El número cincuenta y ocho.",
+    "bytes": 78040,
+    "sampleRate": 22050,
+    "duration": 1.7686167800453514,
+    "rms": 0.17055628559499586,
+    "peak": 0.999969482421875,
+    "sha256": "22dbfad99fa3320bdaebbc976080a9be88d6bf2b7bb42bc493817c1834736d5f"
+  },
+  {
+    "file": "number-59.wav",
+    "text": "El número cincuenta y nueve.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.18774305930345336,
+    "peak": 0.999969482421875,
+    "sha256": "b4ab37900defe5721a5f28ed2c2acb88dd8069f19d6e5c388550654d5433d6c7"
+  },
+  {
+    "file": "number-60.wav",
+    "text": "El número sesenta.",
+    "bytes": 60632,
+    "sampleRate": 22050,
+    "duration": 1.3738775510204082,
+    "rms": 0.1408960052651727,
+    "peak": 0.999969482421875,
+    "sha256": "0c36af20367cbc74df6094bfaa8a844c4242287c481a02458cd87d5fae83b751"
+  },
+  {
+    "file": "number-61.wav",
+    "text": "El número sesenta y uno.",
+    "bytes": 72920,
+    "sampleRate": 22050,
+    "duration": 1.652517006802721,
+    "rms": 0.14921421230795656,
+    "peak": 0.999969482421875,
+    "sha256": "c3a050e2f6bce4dd783910a0cc6cd85ba0d68cf56b415d802f2e8cf830900f64"
+  },
+  {
+    "file": "number-62.wav",
+    "text": "El número sesenta y dos.",
+    "bytes": 76504,
+    "sampleRate": 22050,
+    "duration": 1.7337868480725624,
+    "rms": 0.14620077681058893,
+    "peak": 0.999969482421875,
+    "sha256": "ccc7f702713f77dd632a64fc7d15bf4abfdb1c892929eb6959b678d1f133c98d"
+  },
+  {
+    "file": "number-63.wav",
+    "text": "El número sesenta y tres.",
+    "bytes": 83672,
+    "sampleRate": 22050,
+    "duration": 1.896326530612245,
+    "rms": 0.14941887482515095,
+    "peak": 0.99993896484375,
+    "sha256": "e34ac3a880f6bc90ec1f7968515524eaf167a12d97ad84b33ed48cd731711443"
+  },
+  {
+    "file": "number-64.wav",
+    "text": "El número sesenta y cuatro.",
+    "bytes": 82136,
+    "sampleRate": 22050,
+    "duration": 1.8614965986394558,
+    "rms": 0.14482923248574311,
+    "peak": 0.99993896484375,
+    "sha256": "b1c20acc686e4c8a672d88267def8bcf3b2e0290aa4db97099f647e9a1ae4123"
+  },
+  {
+    "file": "number-65.wav",
+    "text": "El número sesenta y cinco.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.17209354893154427,
+    "peak": 0.999969482421875,
+    "sha256": "fa90e714c3f9530c0ea3a6b01d606dd616d3f6b906dfe28ef7eb151f76d3905d"
+  },
+  {
+    "file": "number-66.wav",
+    "text": "El número sesenta y seis.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.17753528255174475,
+    "peak": 0.999969482421875,
+    "sha256": "1aff3e68085cbcad2ccb0f6c25082fba2fc38f180d0aabd4448e81496a70e166"
+  },
+  {
+    "file": "number-67.wav",
+    "text": "El número sesenta y siete.",
+    "bytes": 84696,
+    "sampleRate": 22050,
+    "duration": 1.9195464852607709,
+    "rms": 0.1542977623420308,
+    "peak": 0.99993896484375,
+    "sha256": "4e017b90d5854d0b1fcacb15234c2c2bbf1b9c6043ff656efb92da3385e10e30"
+  },
+  {
+    "file": "number-68.wav",
+    "text": "El número sesenta y ocho.",
+    "bytes": 79064,
+    "sampleRate": 22050,
+    "duration": 1.7918367346938775,
+    "rms": 0.1607635717299013,
+    "peak": 0.999969482421875,
+    "sha256": "4006c4f515f86730c2a6d7a3d8001c96a9f43f1adadee0e55d34f98c1358e0bd"
+  },
+  {
+    "file": "number-69.wav",
+    "text": "El número sesenta y nueve.",
+    "bytes": 80088,
+    "sampleRate": 22050,
+    "duration": 1.8150566893424036,
+    "rms": 0.17190622375371017,
+    "peak": 0.999969482421875,
+    "sha256": "43b37b43fa2e0d98a3b249b26deb1ff333de37314684b51895e7a6a0f873d9d7"
+  },
+  {
+    "file": "number-70.wav",
+    "text": "El número setenta.",
+    "bytes": 58584,
+    "sampleRate": 22050,
+    "duration": 1.327437641723356,
+    "rms": 0.1446650766185819,
+    "peak": 0.999969482421875,
+    "sha256": "3939d8d9c4f38661921ffaf7bd098ae71515079cf7d4d67be37e6af5c9d356d0"
+  },
+  {
+    "file": "number-71.wav",
+    "text": "El número setenta y uno.",
+    "bytes": 69336,
+    "sampleRate": 22050,
+    "duration": 1.57124716553288,
+    "rms": 0.15658843098266867,
+    "peak": 0.999969482421875,
+    "sha256": "c58f80e9eaf39810f64936ba9ec1cfed2d8646ee0e4c3c39fe34f93ee93b4e47"
+  },
+  {
+    "file": "number-72.wav",
+    "text": "El número setenta y dos.",
+    "bytes": 79064,
+    "sampleRate": 22050,
+    "duration": 1.7918367346938775,
+    "rms": 0.15917805340084387,
+    "peak": 0.99993896484375,
+    "sha256": "fee6e4e0f63c6640778ef5fc78187be39790f0f7f8744d7ce6c5232a36572251"
+  },
+  {
+    "file": "number-73.wav",
+    "text": "El número setenta y tres.",
+    "bytes": 84696,
+    "sampleRate": 22050,
+    "duration": 1.9195464852607709,
+    "rms": 0.15132512773594192,
+    "peak": 0.99993896484375,
+    "sha256": "fc8e325a41ca01a09fd6a9ddc33509771ac0ef9875c5d05996af8265c43212dd"
+  },
+  {
+    "file": "number-74.wav",
+    "text": "El número setenta y cuatro.",
+    "bytes": 82136,
+    "sampleRate": 22050,
+    "duration": 1.8614965986394558,
+    "rms": 0.15115274353668193,
+    "peak": 0.99993896484375,
+    "sha256": "9a3bc29100c93c6921b684fdf89ceeb19941c21ce0ec041519beb193ea99adb7"
+  },
+  {
+    "file": "number-75.wav",
+    "text": "El número setenta y cinco.",
+    "bytes": 84696,
+    "sampleRate": 22050,
+    "duration": 1.9195464852607709,
+    "rms": 0.152211294913634,
+    "peak": 0.999969482421875,
+    "sha256": "f31857eeb931492a9d8fcabb69e5673e44891bf0e880e5c6aa59c22e175caebe"
+  },
+  {
+    "file": "number-76.wav",
+    "text": "El número setenta y seis.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.15597808091954252,
+    "peak": 0.999969482421875,
+    "sha256": "ea13f69bd3f5835e30e9dc376f701018579bfd8510a572b92d977fe6711fd428"
+  },
+  {
+    "file": "number-77.wav",
+    "text": "El número setenta y siete.",
+    "bytes": 82136,
+    "sampleRate": 22050,
+    "duration": 1.8614965986394558,
+    "rms": 0.15161824330403886,
+    "peak": 0.99993896484375,
+    "sha256": "d82d4345f5b5482432dc0b8d921e0a721de3f2a2f89a5a8dd42b2630705be2e9"
+  },
+  {
+    "file": "number-78.wav",
+    "text": "El número setenta y ocho.",
+    "bytes": 83160,
+    "sampleRate": 22050,
+    "duration": 1.884716553287982,
+    "rms": 0.15125413216950326,
+    "peak": 0.99993896484375,
+    "sha256": "efee0dc386d1ff330b3eee3a0da1f2e713c7e70d8a463e17c8d14b65718b2e66"
+  },
+  {
+    "file": "number-79.wav",
+    "text": "El número setenta y nueve.",
+    "bytes": 85720,
+    "sampleRate": 22050,
+    "duration": 1.942766439909297,
+    "rms": 0.18920536104996885,
+    "peak": 0.999969482421875,
+    "sha256": "34f2394c43734831067735848393ae0cecccb709a4ac6eadbe94667c7971e15e"
+  },
+  {
+    "file": "number-80.wav",
+    "text": "El número ochenta.",
+    "bytes": 61144,
+    "sampleRate": 22050,
+    "duration": 1.3854875283446713,
+    "rms": 0.1444571915945716,
+    "peak": 0.99993896484375,
+    "sha256": "0943a6773fd9e9e1e74ec202c5081e7b3d76d24480fda53e8ae5a47b1aa2d2e2"
+  },
+  {
+    "file": "number-81.wav",
+    "text": "El número ochenta y uno.",
+    "bytes": 72920,
+    "sampleRate": 22050,
+    "duration": 1.652517006802721,
+    "rms": 0.159875142901703,
+    "peak": 0.999969482421875,
+    "sha256": "fb932e191319cf0a0c8f49f54d5e9a1a6c9715a083b57cf25049beb8963849aa"
+  },
+  {
+    "file": "number-82.wav",
+    "text": "El número ochenta y dos.",
+    "bytes": 78040,
+    "sampleRate": 22050,
+    "duration": 1.7686167800453514,
+    "rms": 0.15832735027542433,
+    "peak": 0.999969482421875,
+    "sha256": "0bf681c331b48649c6426542352fad05a8946bc2ba450c86641440cb9e9a2845"
+  },
+  {
+    "file": "number-83.wav",
+    "text": "El número ochenta y tres.",
+    "bytes": 84696,
+    "sampleRate": 22050,
+    "duration": 1.9195464852607709,
+    "rms": 0.15643058545817284,
+    "peak": 0.999969482421875,
+    "sha256": "24f39226202476a06f19f0bf1762c2f95fe77d8471fe67b62291a552f63157b2"
+  },
+  {
+    "file": "number-84.wav",
+    "text": "El número ochenta y cuatro.",
+    "bytes": 80088,
+    "sampleRate": 22050,
+    "duration": 1.8150566893424036,
+    "rms": 0.1579649414632167,
+    "peak": 0.999969482421875,
+    "sha256": "7e19941d27538da5afd318f0c7ec5603c3df8cd08575bd0483a40ac0e2fff6c4"
+  },
+  {
+    "file": "number-85.wav",
+    "text": "El número ochenta y cinco.",
+    "bytes": 81112,
+    "sampleRate": 22050,
+    "duration": 1.8382766439909297,
+    "rms": 0.16727644714681694,
+    "peak": 0.999969482421875,
+    "sha256": "86069f5b4f0bea4b8de4e566080e6efc16c85561b410f73530ea194b9b09e55e"
+  },
+  {
+    "file": "number-86.wav",
+    "text": "El número ochenta y seis.",
+    "bytes": 81624,
+    "sampleRate": 22050,
+    "duration": 1.8498866213151928,
+    "rms": 0.1679276385723201,
+    "peak": 0.999969482421875,
+    "sha256": "c790eb72feca5621f4bcebeabe46a2bae7650bfc5b2635b990180725cb9e7a45"
+  },
+  {
+    "file": "number-87.wav",
+    "text": "El número ochenta y siete.",
+    "bytes": 86744,
+    "sampleRate": 22050,
+    "duration": 1.965986394557823,
+    "rms": 0.16184736137032105,
+    "peak": 0.99993896484375,
+    "sha256": "454d2fc9b40768c892ff794802d4a3cb319cd974d64cfa8750c4c85e34522520"
+  },
+  {
+    "file": "number-88.wav",
+    "text": "El número ochenta y ocho.",
+    "bytes": 74456,
+    "sampleRate": 22050,
+    "duration": 1.6873469387755102,
+    "rms": 0.17113282747155042,
+    "peak": 0.999969482421875,
+    "sha256": "35a4cb85c364b5edc3590801289c374fd3a253f6e3cda6f2407f98200d282f5a"
+  },
+  {
+    "file": "number-89.wav",
+    "text": "El número ochenta y nueve.",
+    "bytes": 80088,
+    "sampleRate": 22050,
+    "duration": 1.8150566893424036,
+    "rms": 0.1811450281318433,
+    "peak": 0.99993896484375,
+    "sha256": "ef0c660973506b18681b3e4624c3013414e6679907e74172b3774afabf702bf2"
+  },
+  {
+    "file": "number-90.wav",
+    "text": "El número noventa.",
+    "bytes": 57048,
+    "sampleRate": 22050,
+    "duration": 1.2926077097505668,
+    "rms": 0.14893145120673443,
+    "peak": 0.999969482421875,
+    "sha256": "8cb68fbf1119d918221f96da2713f657e6497238c68dab443d2039118886ed14"
+  }
+]

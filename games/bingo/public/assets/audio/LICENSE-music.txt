@@ -1,0 +1,11 @@
+Contemplation
+Author: Joth
+SPDX-License-Identifier: CC0-1.0
+Source: https://opengameart.org/content/contemplation-0
+Original download: https://opengameart.org/sites/default/files/Contemplation.mp3
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Retrieved: 2026-11-09
+
+The author's asset page identifies the work as CC0 / Public Domain.
+Contemplation.mp3 is distributed unmodified as background-calm.mp3.
+SHA-256: 283962d3a975c93613c46cda30c9f0816176ae3e2899f961591a49e2d41b4bf3
