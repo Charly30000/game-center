@@ -1,5 +1,5 @@
 // Registro explícito: nunca convertir identificadores del navegador en rutas o comandos.
-export const games = Object.freeze([
-  { id: 'bingo', title: 'Bingo en familia', subtitle: 'Un número. Muchas ganas de cantar bingo.', players: '1–40 jugadores', badge: 'El clásico de siempre', port: 3001, command: ['node', 'games/bingo/server.mjs'] },
-]);
+import { readFileSync } from 'node:fs';
+import { registeredGames } from './catalog-registry.mjs';
+export const games = Object.freeze(registeredGames(JSON.parse(readFileSync(new URL('./games.json',import.meta.url),'utf8'))));
 export const findGame = id => games.find(game => game.id === id);

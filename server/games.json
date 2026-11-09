@@ -1,0 +1,12 @@
+[
+  {
+    "number": 1,
+    "id": "bingo",
+    "title": "Bingo en familia",
+    "subtitle": "Un número. Muchas ganas de cantar bingo.",
+    "badge": "El clásico de siempre",
+    "port": 3001,
+    "minPlayers": 1,
+    "maxPlayers": 40
+  }
+]

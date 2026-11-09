@@ -2,6 +2,8 @@
 
 Todos los comandos siguientes se lanzan desde la raíz del proyecto. Las instalaciones y las pruebas se realizan dentro de Docker, sin instalar Node, fuentes, Sharp o Chromium en el anfitrión.
 
+Para preparar otro videojuego, usar el [asistente `npm run game:create`](new-game.md#generar-la-base-con-el-asistente). La guía contiene las variantes Docker para Windows/Linux, las decisiones obligatorias y el modo de simulación. El asistente escribe los archivos y el registro del proyecto; no despliega ni reinicia servicios.
+
 ## Uso diario
 
 ```powershell

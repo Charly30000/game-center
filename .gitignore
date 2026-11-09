@@ -8,3 +8,6 @@ public/shared/vendor/
 .env
 .DS_Store
 games/*/data/*.sqlite*
+.game-create.lock
+.game-template-*/
+server/.games-*.json

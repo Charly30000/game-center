@@ -32,6 +32,8 @@ Solo arranca el centro. Al pulsar **Jugar**, este crea el contenedor independien
 
 ## Documentación
 
+Para generar la arquitectura inicial de otro videojuego, usar **`npm run game:create`** dentro de Docker: [asistente y plantilla](docs/new-game.md#generar-la-base-con-el-asistente). Pregunta por salas y avatares, crea la entrada del catálogo y deja preparados TV/Jugador, perfiles, espera y reglas compartidas. La mecánica específica se implementa después.
+
 - [Arquitectura, Docker y cómo añadir juegos](docs/architecture.md).
 - [Crear un juego: decisiones iniciales, pantallas y requisitos técnicos](docs/new-game.md).
 - [Operación, comandos y diagnóstico](docs/operations.md).

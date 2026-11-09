@@ -41,7 +41,9 @@ Los contenedores dinámicos no pertenecen a los servicios de Compose y `docker c
 
 Seguir la [guía de creación de juegos](new-game.md) antes de implementar: recoge las consultas obligatorias sobre salas y avatares, el flujo TV/Jugador, participantes y nombres únicos, reglas autoritativas, reconexión, aislamiento y pruebas. La guía concentra los primeros pasos para evitar instrucciones duplicadas.
 
-El registro en `server/catalog.mjs`, `/health`, WebSocket `/socket` y el ciclo de vida Docker descrito arriba integran el nuevo juego con el centro. Sus sistemas y recursos pertenecen a `games/<id>/`: no puede importar código específico ni recursos de otro juego. Las soluciones tomadas como referencia se copian y adaptan localmente. La portada y los metadatos visuales del catálogo deben corresponder al nuevo juego; el diseño actual está especializado en Bingo.
+`npm run game:create` copia `templates/game/` y añade sus metadatos al registro único `server/games.json`, que incluye también Bingo como número 1. `server/catalog.mjs` valida todos los juegos mediante `catalog-registry.mjs` y los ordena por `number`. Cada alta recibe el mayor número existente más uno. No hay reservas de identificadores ni puertos específicas de Bingo: las colisiones se comprueban contra el registro completo. Todos usan el mismo comando `node games/<id>/server.mjs` y la misma tarjeta, con su propia portada `public/assets/cover.svg`.
+
+`/health`, WebSocket `/socket` y el ciclo de vida Docker descrito arriba integran el nuevo juego. Sus sistemas y recursos pertenecen a `games/<id>/`: no importa la plantilla en ejecución ni depende de otro juego. El comando genera también configuración, documentación y pruebas; no implementa puntuaciones ni la mecánica específica. El asistente no toca contenedores. Tras generar, reconstruir la imagen y planificar la recreación autorizada del centro para cargar el catálogo nuevo.
 
 ## Dependencias
 

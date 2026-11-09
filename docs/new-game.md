@@ -4,6 +4,54 @@ Esta guía define la base obligatoria de los nuevos juegos del Game Center. Leer
 
 Consultar también [arquitectura](architecture.md), [operación](operations.md) y [mandos de TV](remote-controls.md). Bingo sirve de referencia de comportamiento: [interfaz y sesiones](../games/bingo/docs/interface.md) y [protocolo](../games/bingo/docs/protocol.md). No convertir sus reglas particulares en requisitos de otros juegos.
 
+## Generar la base con el asistente
+
+El comando del paquete es **`npm run game:create`**. Copia la plantilla de `templates/game/`, crea `games/<id>/` y registra el nuevo juego en `server/games.json`. No importa sistemas de otro juego, no sobrescribe un destino existente y no inicia ni reinicia servicios. No crea un videojuego completo: genera la arquitectura y un flujo demostrativo para añadir después sus mecánicas.
+
+Ejecutar desde la raíz, dentro de Docker. Reconstruir primero la imagen si todavía no contiene el generador: `docker compose build`.
+
+**Windows (PowerShell):**
+
+```powershell
+docker run --rm -it --network none --mount "type=bind,source=$((Get-Location).Path),target=/workspace" --workdir /workspace gamecenter-runtime:local npm run game:create
+```
+
+**Linux:**
+
+```sh
+docker run --rm -it --network none --user "$(id -u):$(id -g)" --mount "type=bind,source=$(pwd),target=/workspace" --workdir /workspace gamecenter-runtime:local npm run game:create
+```
+
+En Linux, usar el usuario del anfitrión evita archivos propiedad de root. El asistente solo requiere módulos incorporados de Node; no instala paquetes ni necesita Internet o socket Docker. El montaje concede escritura únicamente al proyecto. Para inspeccionar opciones: añadir `-- --help` al comando del paquete.
+
+Pregunta por nombre, identificador, salas, avatares, límites de jugadores y orientación del móvil. **Salas y avatares nunca se deducen:** en ejecución no interactiva son obligatorios. Las salas de esta plantilla son públicas en la LAN, sin contraseña, con nombre y código visible de seis caracteres, máximo 24, cierre desde TV en lobby y retirada tras 24 horas vacías. Si se necesitan permisos privados, contraseñas o persistencia, hay que acordarlos e implementarlos antes de publicar. **Los nombres son siempre únicos en todo el videojuego, también entre salas**; no se pregunta ni se ofrece una opción para permitir duplicados.
+
+Ejemplo no interactivo, con la misma envoltura Docker anterior:
+
+```text
+npm run game:create -- --id mi-juego --name "Mi juego" --rooms yes --avatars own --min-players 2 --max-players 12 --orientation landscape
+```
+
+- `--avatars own`: crea ocho avatares geométricos SVG provisionales, además de portada, icono y símbolos TV/Jugador propios. Sustituirlos después por la identidad artística del juego.
+- `--avatars bingo` (u otro ID): declara autorización para copiar los archivos de `games/<origen>/public/assets/avatars/` a la nueva carpeta. Solo copia imágenes normales, no enlaces ni los demás recursos del juego de origen. Revisar las licencias y adaptar posteriormente el diseño.
+- `--rooms no`: sala única; no aparece la pantalla de salas. Con `yes`, aparece antes del selector de dispositivo.
+- `--dry-run`: valida decisiones y muestra los archivos sin escribir ni registrar nada. No omite las decisiones obligatorias.
+
+Cada pregunta se valida antes de continuar y se repite mediante un `do…while` si la respuesta es inválida. La orientación muestra **1. Horizontal (landscape)** y **2. Vertical (portrait)**; pulsar Enter elige horizontal. Los avatares muestran **0. Crear propios** y los juegos registrados por su número y nombre; seleccionar un juego autoriza copiar sus avatares. Los parámetros no interactivos conservan sus valores textuales y también admiten esos números; un parámetro inválido termina inmediatamente con su error, sin crear archivos.
+
+Todos los juegos, incluido Bingo, siguen el mismo registro y validación. `number` establece el orden del catálogo: **Bingo es el 1** y cada alta recibe el mayor número existente más uno (2, 3…). Los números existentes no se recalculan ni se alteran por ordenar el JSON; no renombrar carpetas ni rutas. El puerto se asigna buscando el primero disponible desde 3001; con Bingo en 3001, el siguiente será 3002. El comando del servidor siempre es `node games/<id>/server.mjs`.
+
+Incluye dominio, transporte WebSocket, configuración pública, perfiles sin duplicados, espera con tarjetas, reglas desde varias TV, recuperación y toma de sesión, navegación, control de pantalla completa, orientación opcional y documentación del juego. Las reglas iniciales `rounds` (1–20) y la finalización desde TV permiten probar el flujo; **no implementan turnos, azar, puntuaciones ni ganadores**.
+
+Después de generar:
+
+1. Revisar las decisiones en el README del juego y completar su mecánica en el dominio.
+2. Ejecutar las pruebas en Docker. `npm test` descubre también los tests de cada `games/<id>/tests/`; no hay que editar el comando por juego.
+3. Reconstruir la imagen para incluir sus archivos. El catálogo se lee al arrancar el centro: recrearlo requiere autorización y debe planificarse conforme a [operación](operations.md). El asistente no lo hace automáticamente.
+4. Completar las comprobaciones de esta guía, especialmente salas, recuperación, mandos y tamaños. Registrar lo realmente verificado en los documentos del nuevo juego.
+
+Si aparece `.game-create.lock`, hay una creación en curso. No borrarlo mientras siga ejecutándose; tras una interrupción, comprobar primero que terminó el asistente. La escritura se prepara en una carpeta temporal y el registro se sustituye de forma atómica; un fallo revierte los archivos nuevos de esa ejecución, sin sobrescribir juegos existentes.
+
 ## 1. Acordar las decisiones iniciales
 
 Hay dos consultas obligatorias al usuario antes de implementar las partes dependientes. Si ya las ha respondido explícitamente en el encargo o en la conversación, registrar esa decisión; nunca inferirla por parecerse a otro juego.
@@ -39,8 +87,8 @@ Se pueden utilizar las dependencias instaladas y la infraestructura general del 
 
 - Todo se ejecuta desde Docker. El centro permanece activo; cada juego se ejecuta en su propio contenedor, iniciado bajo demanda. Varias entradas simultáneas deben reutilizar el mismo arranque.
 - Implementar `GET /health` y WebSocket `/socket`, escuchando en `0.0.0.0` y el puerto interno configurado. Comprobar salud antes de anunciar que el juego está listo.
-- Registrar identificador, textos, puerto y comando fijo en [server/catalog.mjs](../server/catalog.mjs). El navegador nunca decide comandos, imágenes Docker ni rutas del servidor.
-- Integrar portada, accesibilidad y navegación del nuevo juego en el catálogo. El componente actual está especializado visualmente en Bingo: no mostrar su portada para otro juego.
+- Registrar identificador y metadatos en [server/games.json](../server/games.json), que valida y carga [server/catalog.mjs](../server/catalog.mjs). El generador lo hace automáticamente; los comandos y rutas se construyen en infraestructura a partir de identificadores validados. El navegador nunca decide comandos, imágenes Docker ni rutas del servidor.
+- Integrar portada, accesibilidad y navegación del nuevo juego en el catálogo. Todos utilizan su propio `public/assets/cover.svg` mediante la misma tarjeta y sin condiciones por identificador. El generador crea una portada e icono provisionales; cada juego conserva su diseño independiente.
 - Solo el centro publica un puerto al anfitrión; HTTP y WebSocket del juego pasan por su pasarela. Los juegos no reciben el socket Docker y usan límites de CPU y memoria.
 - Mantener la retirada tras 24 horas sin uso. Las conexiones de TV, jugadores y visitantes cuentan como uso; una sala vacía no debe provocar que se retire un contenedor que todavía utiliza otra sala.
 - Las salas, si existen, se aíslan dentro del estado del juego; no implican por defecto un contenedor por sala. Separar participantes, reglas, partidas, sesiones y difusión de mensajes por sala.
@@ -66,7 +114,7 @@ La selección de sala solo aparece si se ha acordado ese sistema. No deducir el 
 - Normalizar los nombres y aplicar explícitamente `.trim()` para quitar espacios al principio y al final **antes** de validar la longitud y comprobar duplicados. El mínimo es **3 caracteres** y el máximo 40 sobre el nombre resultante: `" Ana "` se guarda como `"Ana"`; `" Al "` se rechaza. Hacerlo en el formulario y obligatoriamente en el servidor, aunque se envíen mensajes sin usar la interfaz. Espacios, mayúsculas/minúsculas y representación Unicode no deben permitir duplicados visualmente equivalentes. Escapar el texto al mostrarlo.
 - La comprobación y la asignación deben ser atómicas: dos confirmaciones simultáneas no pueden conseguir el mismo nombre. Una validación exclusiva del navegador no es suficiente.
 - Conservar la reserva del nombre de un jugador desconectado mientras exista su identidad. Volver con ese nombre debe recuperar a ese jugador, no crear otro participante igual.
-- Documentar el ámbito de unicidad y el fin de la reserva. Con salas, acordar si los nombres también serán únicos entre salas; nunca admitir duplicados dentro de un listado compartido. Si «nunca repetir» incluye incluso partidas ya borradas, confirmarlo y conservar el registro de nombres en SQLite: el estado volátil por sí solo no garantiza esa prohibición histórica.
+- La unicidad es obligatoria en todo el videojuego, también entre salas, sin preguntar ni permitir un ámbito más reducido. La reserva se mantiene mientras exista la identidad, incluso desconectada. Documentar cuándo se elimina esa identidad; el estado en memoria no constituye un registro histórico tras borrar partidas o reiniciar el contenedor.
 
 ### Espera y reglas desde TV
 
@@ -113,7 +161,7 @@ Comprobar, con pruebas adecuadas dentro de Docker:
 - Entrada concurrente sin duplicar el contenedor y carga con estado de error recuperable.
 - Configuración desde dos TV y varios móviles, nombres duplicados enviados simultáneamente y permisos de acciones.
 - Participantes pendientes, confirmación, desconexión, recuperación y sustitución de una sesión activa sin pérdida de datos ni duplicados.
-- Si hay salas, aislamiento de estado, mensajes, credenciales, nombres según el ámbito acordado y cancelación independiente.
+- Si hay salas, aislamiento de estado, mensajes y credenciales, nombres únicos en todo el videojuego y cancelación independiente.
 - Inicio, jugabilidad mínima, resultados, revancha, reinicio coordinado, salida y nueva entrada con Atrás.
 - Privacidad de datos, mensajes duplicados o atrasados y tiempos del servidor.
 - Tamaños grandes y pequeños, vertical y horizontal, mandos, movimiento reducido y modo ligero cuando existan efectos.

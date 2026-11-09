@@ -71,7 +71,8 @@ try{
   for(const viewport of [{width:320,height:568},{width:360,height:640},{width:390,height:844},{width:568,height:320},{width:667,height:375},{width:844,height:390},{width:1280,height:720}]){
     await page.setViewportSize(viewport);await page.goto(base);await page.locator('.game-card').waitFor();await fit(page,`Catálogo ${viewport.width}×${viewport.height}`);
     assert.equal(await page.locator('.game-info').isVisible(),true);await page.screenshot({path:`/artifacts/center-${viewport.width}x${viewport.height}.png`});
-    assert.ok((await page.locator('.bingo-cover-logo text').allTextContents()).includes('BIN'));
+    const cover=page.locator('.game-cover img');assert.ok((await cover.getAttribute('src')).endsWith('/bingo/assets/cover.svg'));
+    assert.ok(await cover.evaluate(image=>image.complete&&image.naturalWidth>0));
   }
   await page.goto(base+'/games/bingo/');await page.locator('button[data-role="tv"]').waitFor();
   assert.equal(await page.evaluate(()=>window.__messages[0].payload.role),'player');assert.equal(await page.evaluate(()=>localStorage.getItem('bingo.role')),null);assert.equal(await page.evaluate(()=>localStorage.getItem('bingo.token')),null);

@@ -23,7 +23,7 @@ Las dos ilustraciones del anfitrión se han creado con la herramienta integrada 
 3. Genera las casillas, flechas, bolas y tablero SVG que referencia la interfaz.
 4. Prepara iconos PNG y el catálogo de cartones cuando falta.
 
-La portada del Game Center mantiene BIN / GO!, el rótulo «PARA TODA LA FAMILIA» y la bola 90, compuestos en SVG sobre la nueva ilustración. El selector de TV utiliza al anfitrión actual; el selector de jugador conserva el cartón. Los avatares mantienen proporción 1:1. No se incluyen imágenes, generadores ni referencias del anfitrión anterior.
+La portada del Game Center mantiene BIN / GO!, el rótulo «PARA TODA LA FAMILIA» y la bola 90, compuestos en SVG sobre la nueva ilustración. La composición editable está en `source/cover.svg`; la preparación genera `public/assets/cover.svg` con ilustración y fuentes Fredoka incrustadas para que funcione como una imagen autónoma. El catálogo la carga igual que las portadas de los demás juegos, sin código específico de Bingo. El selector de TV utiliza al anfitrión actual; el selector de jugador conserva el cartón. Los avatares mantienen proporción 1:1. No se incluyen imágenes, generadores ni referencias del anfitrión anterior.
 
 ## Modelo y escena
 

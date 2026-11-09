@@ -19,11 +19,16 @@ for (let index = 0; index < 20; index++) {
   await writeFile(new URL(`avatars/${index}.webp`, assets), await sharp(avatarSource).extract({ left, top, width, height }).resize(160, 160, { fit: 'cover' }).webp({ quality: 78 }).toBuffer());
 }
 await writeFile(new URL('presenter-cover.webp', assets), await sharp(await readFile(new URL('art/source/presenter-cover.png', game))).trim({ threshold: 5 }).resize({ width: 840 }).webp({ quality: 86, alphaQuality: 100 }).toBuffer());
+// Portada autónoma: el catálogo carga el mismo recurso local para todos los juegos.
+let cover = await readFile(new URL('art/source/cover.svg', game), 'utf8');
+for (const [token,path] of [['PRESENTER','games/bingo/public/assets/presenter-cover.webp'],['FONT400','node_modules/@fontsource/fredoka/files/fredoka-latin-400-normal.woff2'],['FONT600','node_modules/@fontsource/fredoka/files/fredoka-latin-600-normal.woff2']]) cover = cover.replace(`{{${token}}}`, (await readFile(new URL(path, root))).toString('base64'));
+await writeFile(new URL('cover.svg', assets), cover);
 await writeFile(new URL('presenter-static.webp', assets), await sharp(await readFile(new URL('art/source/presenter-static.png', game))).trim({ threshold: 5 }).resize({ width: 840 - 56 }).extend({ top: 28, bottom: 28, left: 28, right: 28, background: { r: 0, g: 0, b: 0, alpha: 0 } }).webp({ quality: 86, alphaQuality: 100 }).toBuffer());
 const svg = (width, height, body) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">${body}</svg>`;
 const writeSvg = (name, width, height, body) => writeFile(new URL(name, assets), svg(width, height, body));
 await writeSvg('arrow.svg', 48, 48, '<path d="m10 27 14-12 14 12M10 37l14-12 14 12" fill="none" stroke="#166b62" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>');
 await writeSvg('ball.svg', 100, 100, '<defs><radialGradient id="g" cx="35%" cy="25%"><stop stop-color="#fff9dd"/><stop offset=".65" stop-color="#f4c95e"/><stop offset="1" stop-color="#d99c30"/></radialGradient></defs><circle cx="50" cy="50" r="46" fill="url(#g)"/><circle cx="50" cy="50" r="31" fill="#fffcf2" stroke="#c48c2b" stroke-width="1"/>');
+await writeFile(new URL('icon.svg', assets), await readFile(new URL('ball.svg', assets)));
 await writeSvg('board.svg', 1000, 900, '<defs><pattern id="p" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r=".8" fill="#fff" opacity=".12"/></pattern></defs><rect width="1000" height="900" rx="24" fill="#166b62"/><rect width="1000" height="900" fill="url(#p)"/><rect x="8" y="8" width="984" height="884" rx="18" fill="none" stroke="#e2c47a" stroke-width="2"/>');
 await writeSvg('cell-empty.svg', 96, 68, '<defs><pattern id="p" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v9" stroke="#a9997a" stroke-width="1" opacity=".4"/></pattern></defs><path fill="#e9e1d1" d="M0 0h96v68H0z"/><path fill="url(#p)" d="M0 0h96v68H0z"/>');
 await writeSvg('cell-number.svg', 96, 68, '<path fill="#fffbed" d="M0 0h96v68H0z"/><path d="M0 67h96" stroke="#d6c9ae"/>');

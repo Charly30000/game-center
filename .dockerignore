@@ -10,3 +10,6 @@ games/*/art/blender
 *.blend[0-9]*
 *.log
 .env
+.game-create.lock
+.game-template-*
+server/.games-*.json

@@ -10,7 +10,8 @@
   },
   "scripts": {
     "prepare:assets": "node scripts/prepare-assets.mjs",
-    "test": "node --test games/bingo/tests/*.test.mjs tests/*.test.mjs",
+    "game:create": "node scripts/create-game.mjs",
+    "test": "node scripts/test.mjs",
     "start": "node server/index.mjs"
   },
   "dependencies": {

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230">
+  <style>@font-face{font-family:Fredoka;src:url(data:font/woff2;base64,{{FONT400}}) format('woff2');font-weight:400}@font-face{font-family:Fredoka;src:url(data:font/woff2;base64,{{FONT600}}) format('woff2');font-weight:600}</style>
+  <rect width="360" height="230" fill="#f1dbc3"/>
+  <image href="data:image/webp;base64,{{PRESENTER}}" x="113" y="42" width="244" height="180"/>
+  <rect x="14" y="14" width="147" height="21" rx="5" fill="#fffdf6" opacity=".9"/>
+  <text x="22" y="28" font-family="Fredoka,sans-serif" font-size="9" fill="#3c403b">PARA TODA LA FAMILIA</text>
+  <g transform="rotate(-9 70 106)" fill="#d95d38" font-family="Fredoka,sans-serif" font-size="56" font-weight="600" stroke="#fff6e4" stroke-width="1"><text x="22" y="91">BIN</text><text x="22" y="141">GO!</text></g>
+  <g transform="rotate(-10 68 187)"><circle cx="68" cy="187" r="27" fill="#faf7ef" stroke="#f4c95e" stroke-width="9"/><text x="68" y="196" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="25" fill="#282c35">90</text></g>
+</svg>
