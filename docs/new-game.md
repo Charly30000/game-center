@@ -49,6 +49,7 @@ Después de generar:
 2. Ejecutar las pruebas en Docker. `npm test` descubre también los tests de cada `games/<id>/tests/`; no hay que editar el comando por juego.
 3. Reconstruir la imagen para incluir sus archivos. El catálogo se lee al arrancar el centro: recrearlo requiere autorización y debe planificarse conforme a [operación](operations.md). El asistente no lo hace automáticamente.
 4. Completar las comprobaciones de esta guía, especialmente salas, recuperación, mandos y tamaños. Registrar lo realmente verificado en los documentos del nuevo juego.
+5. Actualizar la sección **Juegos disponibles** del [README principal](../README.md) en el mismo cambio que incorpora el juego. Mantener una lista numerada sencilla con el nombre y un enlace al README de cada juego, siguiendo el orden de `number` de `server/games.json`. Incluir solo juegos disponibles, sin anunciar los que estén pendientes de implementar; actualizar también la lista si se retira o cambia de nombre alguno.
 
 Si aparece `.game-create.lock`, hay una creación en curso. No borrarlo mientras siga ejecutándose; tras una interrupción, comprobar primero que terminó el asistente. La escritura se prepara en una carpeta temporal y el registro se sustituye de forma atómica; un fallo revierte los archivos nuevos de esa ejecución, sin sobrescribir juegos existentes.
 
