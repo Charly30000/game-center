@@ -31,7 +31,8 @@ test('TV: bombo, recogida, anuncio y estrellas siguen el gesto sin solaparse ni 
   f.audio.animation('PickBall',1.3);await flush();assert.match(f.started.at(-1).buffer.id,/chip-lay-1/);
   f.audio.animation('ShowBall',.3);await flush();const voice=f.started.at(-1);assert.match(voice.buffer.id,/voice\/number-28/);
   assert.ok(f.requests.every(path=>!path.includes('glass_001')),'El anuncio comienza directamente, sin bip ni descarga del efecto retirado');
-  f.context.currentTime=.4;assert.equal(f.audio.mouth().speaking,true);assert.ok(f.audio.mouth().open>.13);
+  f.context.currentTime=.3;assert.equal(f.audio.mouth().speaking,false,'La boca espera mientras baja la música');
+  f.context.currentTime=1;assert.equal(f.audio.mouth().speaking,true);assert.ok(f.audio.mouth().open>.13);
   f.audio.animation('ShowBall',1);f.sync();await flush();assert.equal(f.started.at(-1),voice);
   voice.onended();assert.equal(f.audio.mouth().pending,false);assert.equal(f.audio.mouth().speaking,false);
   f.audio.animation('DropBall',.89);await flush();assert.equal(f.started.at(-1),voice);

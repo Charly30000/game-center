@@ -1,18 +1,24 @@
 // Canal independiente de música; comparte el contexto de audio del Bingo.
 export function createBingoMusic({host=globalThis,getContext}) {
   let enabled=true,active=false,ducked=false,disposed=false,pending=false,serial=0;
-  let bufferPromise,node,gain,started=0,offset=0,target;
+  let bufferPromise,node,gain,started=0,offset=0,target,ramp;
   function stop() {
     serial++;pending=false;
     if(node){offset+=Math.max(0,getContext().currentTime-started);try{node.stop();}catch{/* Ya terminó. */}node.disconnect();node=null;}
-    gain?.disconnect();gain=null;target=undefined;
+    gain?.disconnect();gain=null;target=undefined;ramp=null;
   }
   function volume() {
     if(!gain)return;
     const next=ducked ? .05 : .25;
     if(next===target)return;target=next;
-    const context=getContext();gain.gain.cancelScheduledValues(context.currentTime);
-    gain.gain.setTargetAtTime(next,context.currentTime,ducked ? .045 : .6);
+    const now=getContext().currentTime;
+    const progress=ramp?Math.max(0,Math.min(1,(now-ramp.start)/(ramp.end-ramp.start))):0;
+    const current=ramp?ramp.from+(ramp.to-ramp.from)*progress:gain.gain.value;
+    const duration=ducked ? .6 : 1.2;
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(current,now);
+    gain.gain.linearRampToValueAtTime(next,now+duration);
+    ramp={from:current,to:next,start:now,end:now+duration};
   }
   async function start() {
     const context=getContext();if(!context||pending||node)return;

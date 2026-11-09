@@ -1,5 +1,11 @@
 # Verificación
 
+## Fundidos antes y después del número — 9 de noviembre de 2026
+
+Pasan las 13 pruebas de coordinación de audio y música. La bajada es una rampa de 0,6 segundos previa al inicio del número; la recuperación dura 1,2 segundos. La prueba de continuidad verifica que una recuperación que interrumpe la bajada empieza en su nivel intermedio, sin salto. La boca permanece en reposo durante la espera y el servidor conserva su ritmo. Con música desactivada la voz no espera al fundido.
+
+La revisión de Chromium y Web Audio reales confirma que el inicio de `number-28` se programa 0,6 segundos después de comenzar la reducción y que `number-90` comienza inmediatamente al estar la música desactivada. Se mantienen el volumen normal durante el bombo, el control independiente y los cinco tamaños de pantalla. Informe actualizado en `artifacts/music/`.
+
 ## Reducción de música solo al cantar números — 9 de noviembre de 2026
 
 Pasan las 12 pruebas de coordinación de audio y música. Una regresión comprueba que bombo, recogida, estrellas e invitación a continuar no reducen el fondo; solo la reproducción de `number-*` activa la reducción, que se retira al finalizar el audio. La revisión de Chromium con Web Audio real también confirma volumen 0,25 durante el bombo y 0,05 durante el número cantado, conservando controles y tamaños. Las pausas en resultados, al silenciar o salir se mantienen.

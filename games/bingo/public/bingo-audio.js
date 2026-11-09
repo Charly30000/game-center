@@ -89,17 +89,19 @@ export function createBingoAudio({host = globalThis, onChange = () => {},createM
     if (!buffer) { speechDone = true; syncMusic(); after?.(); return; }
     const node = context.createBufferSource(), volume = context.createGain();
     node.buffer = buffer; volume.gain.value = .85; node.connect(volume); volume.connect(context.destination);
-    const current = {file, node, volume, buffer, started:context.currentTime, frames:createVisemes(text)};
+    const startAt=context.currentTime+(file.startsWith('number-') && music.enabled ? .6 : 0);
+    const current = {file, node, volume, buffer, started:startAt, frames:createVisemes(text)};
     speech = current;
     node.onended = () => {
       node.disconnect(); volume.disconnect();
       if (speech === current) { speech = null; speechDone = true; syncMusic(); if (token === epoch && tv()) after?.(); }
     };
-    node.start();
     syncMusic();
+    node.start(startAt);
   }
   function mouth() {
     if (!speech || !tv()) return {width:1, open:.13, speaking:false, pending:!speechDone};
+    if (context.currentTime < speech.started) return {width:1, open:.13, speaking:false, pending:true};
     const elapsed = Math.max(0, context.currentTime - speech.started), buffer = speech.buffer;
     const pcm = buffer.getChannelData(0), start = Math.floor(elapsed * buffer.sampleRate);
     const end = Math.min(pcm.length, start + Math.ceil(buffer.sampleRate * .025));
