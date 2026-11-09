@@ -63,4 +63,6 @@ El centro accede al socket de Docker para gestionar los juegos. Ese acceso tiene
 
 ## Licencia
 
-Este proyecto se distribuye bajo la [licencia Apache 2.0](LICENSE). Las dependencias y los recursos de terceros conservan sus respectivas licencias y avisos de atribución.
+Salvo los componentes de terceros identificados con otra licencia, todo el contenido propio de este proyecto se distribuye bajo la [licencia Apache 2.0](LICENSE): código fuente, scripts, pruebas, documentación, datos, diseños, imágenes e ilustraciones, modelos 3D, escenas de Blender, materiales, texturas, rigs y animaciones. Esto incluye tanto los archivos fuente editables (por ejemplo, `.blend`) como sus versiones exportadas o generadas (por ejemplo, `.glb`, `.png`, `.webp` y `.svg`).
+
+La licencia se aplica a los derechos que correspondan al titular del proyecto; no implica una garantía de exclusividad ni crea derechos de autor donde la legislación no los reconozca. Las dependencias, tipografías y demás recursos de terceros conservan sus respectivas licencias y avisos de atribución, que no quedan sustituidos por Apache 2.0.
