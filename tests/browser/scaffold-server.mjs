@@ -25,7 +25,7 @@ const server=http.createServer((request,response)=>{
   const path=new URL(request.url,'http://preview').pathname;
   if(path==='/health')return json(response,{ok:true});
   if(path==='/api/games')return json(response,registry.map(({command,port,...entry})=>entry));
-  if(path==='/connection/host-network.json')return json(response,{addresses:[]});
+  if(path==='/api/connection')return json(response,{publicUrl:''});
   const launch=path.match(/^\/api\/games\/([a-z-]+)\/launch$/);if(launch&&backends.has(launch[1]))return json(response,{url:`/games/${launch[1]}/`});
   const game=path.match(/^\/games\/([a-z-]+)\/(.*)$/);
   if(game&&registry.some(entry=>entry.id===game[1]))return serveFile(response,game[1]==='bingo'?'games/bingo/public':join(root,'games',game[1],'public'),game[2]||'index.html');

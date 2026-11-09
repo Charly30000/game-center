@@ -10,11 +10,11 @@ const report={sizes:[],errors:[]};
 try{
   await mkdir('/artifacts/connection',{recursive:true});
   const context=await browser.newContext({viewport:{width:1280,height:720},serviceWorkers:'block'});
-  let addresses=['192.168.1.64'];
+  let publicUrl='http://192.168.1.64:3000';
   // El navegador entra por localhost; las respuestas se sirven desde la pasarela.
   await context.route('http://localhost:3000/**',async route=>{
     const path=new URL(route.request().url()).pathname;
-    if(path==='/connection/host-network.json')return route.fulfill({json:{addresses}});
+    if(path==='/api/connection')return route.fulfill({json:{publicUrl}});
     const response=await route.fetch({url:base+path});await route.fulfill({response});
   });
   const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
@@ -65,8 +65,11 @@ try{
     report.sizes.push({width,height,qr:box.width,decoded:decoded.data});
     if([1920,1280,568,320].includes(width))await page.screenshot({path:`/artifacts/connection/${width}x${height}.png`});
   }
-  addresses=['192.168.1.65'];await page.reload();await page.waitForFunction(()=>document.querySelector('#join-url').textContent==='http://192.168.1.65:3000/');
-  addresses=[];await page.reload();await page.waitForFunction(()=>document.querySelector('#join-status').textContent.includes('dirección de red'));
+  publicUrl='http://192.168.1.65:3000';await page.reload();await page.waitForFunction(()=>document.querySelector('#join-url').textContent==='http://192.168.1.65:3000/');
+  publicUrl='https://juegos.example.org:8443';await page.reload();await page.waitForFunction(()=>document.querySelector('#join-url').textContent==='https://juegos.example.org:8443/');
+  publicUrl='http://localhost:3000';await page.reload();await page.waitForFunction(()=>document.querySelector('#join-status').textContent.includes('dirección de red'));
+  assert.equal(await page.locator('#join-code img').count(),0,'La configuración tampoco puede ofrecer un QR de localhost');
+  publicUrl='';await page.reload();await page.waitForFunction(()=>document.querySelector('#join-status').textContent.includes('dirección de red'));
   assert.equal(await page.locator('#join-code img').count(),0,'No se ofrece un QR de localhost si no se conoce la dirección LAN');
   assert.deepEqual(report.errors,[]);report.ok=true;report.networkChange=true;report.noLocalhostFallback=true;
   await writeFile('/artifacts/connection/validation.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));

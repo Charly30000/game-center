@@ -25,22 +25,13 @@ addresses=$(
     '
   done | awk '!seen[$0]++'
 )
-runtime_directory="$project_root/runtime"
-mkdir -p "$runtime_directory"
-temporary=$(mktemp "$runtime_directory/.host-network.XXXXXX")
-trap 'rm -f "$temporary"' 0
-trap 'exit 1' 1 2 3 15
-{
-  printf '{"addresses":['
-  separator=''
-  for address in $addresses; do printf '%s"%s"' "$separator" "$address"; separator=','; done
-  printf '],"detectedAt":"%s"}\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-} > "$temporary"
-mv -f "$temporary" "$runtime_directory/host-network.json"
+detected_url=''
 if [ -z "$addresses" ]; then
-  printf 'No se ha encontrado una direccion IPv4 de red con ruta predeterminada. Conecta el ordenador a Ethernet o Wi-Fi y vuelve a ejecutar este script.\n' >&2
-  exit 1
+  printf 'No se ha detectado una direccion LAN. Configura GAMECENTER_URL en compose.yaml para mostrar el QR al entrar por localhost.\n' >&2
+else
+  address=$(printf '%s\n' "$addresses" | head -n 1)
+  detected_url="http://$address:3000"
+  printf 'URL de red detectada: %s\n' "$detected_url"
 fi
-printf 'Direcciones de red detectadas:\n%s\n' "$addresses"
 if [ "$prepare_only" = true ]; then exit 0; fi
-docker compose --project-directory "$project_root" up -d --build
+GAMECENTER_DETECTED_URL="$detected_url" docker compose --project-directory "$project_root" up -d --build

@@ -8,13 +8,14 @@ services:
       - "3000:3000"
     environment:
       PORT: "3000"
+      # URL fija: sustituir por "http://192.168.1.50:3000" si se desea.
+      GAMECENTER_URL: "${GAMECENTER_URL:-${GAMECENTER_DETECTED_URL:-}}"
       GAME_IMAGE: gamecenter-runtime:local
       GAME_NETWORK: gamecenter-internal
       GAME_IDLE_MS: "86400000"
       DOCKER_SOCKET: /var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./runtime:/app/public/connection:ro
     networks:
       - access
       - internal

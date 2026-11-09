@@ -12,15 +12,13 @@ function shareableHostname(value) {
   return host.includes('.')&&!host.endsWith('.docker');
 }
 
-// La IP procede del anfitrión, nunca de las interfaces del contenedor.
+// La URL procede de Compose, nunca de las interfaces del contenedor.
 export function connectionUrl(pageUrl,network={}) {
-  const url=new URL(pageUrl);
+  const configured=typeof network?.publicUrl==='string'?network.publicUrl.trim():'';
+  let url;
+  try { url=new URL(configured||pageUrl); } catch { return null; }
   if (!['http:','https:'].includes(url.protocol)||url.username||url.password) return null;
-  const addresses=Array.isArray(network?.addresses)?network.addresses.filter(usableIPv4):[];
-  const address=addresses.includes(url.hostname)?url.hostname:addresses[0];
-  // Conservar el origen HTTPS accesible evita romper su certificado.
-  if (address&&!(url.protocol==='https:'&&shareableHostname(url.hostname))) url.hostname=address;
-  else if (!shareableHostname(url.hostname)) return null;
+  if (!shareableHostname(url.hostname)) return null;
   url.pathname='/';url.search='';url.hash='';
   return url.href;
 }

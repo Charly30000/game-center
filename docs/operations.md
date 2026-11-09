@@ -15,7 +15,7 @@ docker ps --filter label=app.gamecenter.owner=gamecenter-local
 
 La dirección local es `http://localhost:3000`. Los demás dispositivos usan la IP o el nombre accesible del ordenador en la LAN. La red Docker es `gamecenter-internal`; solo el centro publica `3000:3000`.
 
-En Linux, el comando equivalente es `sh ./scripts/start.sh`, con `ip` (iproute2) y Docker Compose disponibles. El script de arranque detecta la dirección IPv4 del anfitrión antes de iniciar Compose, para mostrar el QR y la URL correctos incluso al entrar por localhost. Para actualizar solo esa dirección, usar el mismo comando con `-PrepareOnly` en Windows o `--prepare-only` en Linux y recargar la página. No cambia variables del sistema ni instala herramientas en Windows. Detalles y límites en [conexión por QR](connection.md).
+En Linux, el comando equivalente es `sh ./scripts/start.sh`, con `ip` (iproute2) y Docker Compose disponibles. El script de arranque detecta la dirección IPv4 del anfitrión antes de iniciar Compose, para mostrar el QR y la URL correctos incluso al entrar por localhost. La URL se pasa mediante el entorno de Compose y puede fijarse con `GAMECENTER_URL` en `compose.yaml`. Para actualizarla, volver a ejecutar el arranque y recargar la página; Compose puede recrear el centro. `-PrepareOnly` en Windows y `--prepare-only` en Linux solo muestran la detección, sin aplicar cambios. No cambia variables del sistema ni instala herramientas en Windows. Detalles y límites en [conexión por QR](connection.md).
 
 Al actualizar código, reconstruir cambia la imagen del centro. Un bingo ya iniciado conserva su contenedor e imagen para no interrumpir una partida; para actualizarlo también, termina primero esa partida y retira su contenedor con el comando de apagado de juegos. El siguiente acceso lo creará con la imagen nueva.
 
@@ -47,6 +47,7 @@ Las pruebas de navegador, partidas completas y preparación de recursos se docum
 
 | Variable | Valor predeterminado | Función |
 | --- | --- | --- |
+| `GAMECENTER_URL` | URL detectada por el script, o vacía | URL pública completa del QR; puede fijarse en Compose. Véase [conexión](connection.md) |
 | `PORT` | 3000 en centro, 3001 en Bingo | Puerto interno |
 | `GAME_IMAGE` | `gamecenter-runtime:local` | Imagen fija de los juegos |
 | `GAME_NETWORK` | `gamecenter-internal` | Red interna compartida |

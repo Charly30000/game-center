@@ -14,35 +14,42 @@ En Windows, iniciar desde la raíz del proyecto con:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1
 ```
 
-`scripts/start.ps1` consulta las interfaces mediante las API de red de .NET, sin WMI, instalaciones ni cambios en el sistema. Selecciona interfaces Ethernet/Wi-Fi activas con puerta de enlace IPv4; excluye loopback, direcciones automáticas de enlace y adaptadores identificados como virtuales, Docker, WSL o VPN. Prioriza Ethernet y después Wi-Fi. Guarda las direcciones en `runtime/host-network.json`, un archivo generado e ignorado por Git y por la construcción Docker, y arranca Compose.
+`scripts/start.ps1` consulta las interfaces mediante las API de red de .NET. Selecciona Ethernet/Wi-Fi activas con puerta de enlace IPv4, excluye loopback, direcciones de enlace y adaptadores virtuales, Docker, WSL o VPN. Prioriza Ethernet y después Wi-Fi. Pasa `http://<ip-detectada>:3000` a Compose mediante `GAMECENTER_DETECTED_URL`, solo para el proceso hijo y sin modificar variables persistentes del sistema ni crear archivos de red.
 
-En Linux se conserva el mismo flujo y formato de datos:
+En Linux:
 
 ```sh
 sh ./scripts/start.sh
 ```
 
-Requiere Docker con el complemento Compose y el comando `ip` de iproute2 ya disponible. El script consulta rutas predeterminadas e interfaces IPv4 del anfitrión, ordena las rutas por su métrica y descarta interfaces conocidas de Docker, virtualización y VPN, además de loopback y direcciones de enlace. Escribe el mismo `runtime/host-network.json` mediante un archivo temporal y ejecuta Compose desde la raíz del proyecto. No instala paquetes, modifica la red ni mantiene procesos auxiliares. Se invoca con `sh` para no depender del permiso ejecutable; `.gitattributes` conserva finales LF. El script Windows permanece disponible.
+Requiere Docker Compose e `ip` (iproute2). Ordena las rutas predeterminadas por métrica y descarta interfaces conocidas de Docker, virtualización y VPN. Pasa la URL del mismo modo, sin escribir archivos ni instalar herramientas.
 
-Compose monta `runtime/` en `/app/public/connection/` con solo lectura. La página consulta el archivo al cargar. El puerto procede de la URL de entrada: no se sustituye por el puerto interno del contenedor. Si se ha accedido mediante una IP que coincide con otra interfaz detectada, se conserva esa interfaz. Un origen HTTPS accesible conserva su origen para no romper su certificado.
+## URL configurable en Compose
 
-Al entrar por `localhost`, loopback o un nombre interno de Docker, se utiliza la IP detectada del anfitrión. Si no está disponible, no se muestra un QR engañoso que apunte a localhost. Una entrada directa por una dirección LAN también permite compartir esa URL sin datos de detección.
+El centro recibe `GAMECENTER_URL` y la publica en `GET /api/connection`, con caché desactivada. El navegador consulta esa API para generar el QR y su enlace. Ya no se utiliza `runtime/host-network.json` ni un volumen de conexión.
 
-Si el ordenador cambia de Wi-Fi o de dirección, actualizar los datos y recargar el centro:
+La configuración predeterminada de `compose.yaml` utiliza la URL indicada en el entorno de Compose o, en su ausencia, la detectada por el script:
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1 -PrepareOnly
+```yaml
+environment:
+  GAMECENTER_URL: "${GAMECENTER_URL:-${GAMECENTER_DETECTED_URL:-}}"
 ```
 
-En Linux:
+Para utilizar una IP fija, sustituir esa línea directamente en `compose.yaml`:
 
-```sh
-sh ./scripts/start.sh --prepare-only
+```yaml
+  GAMECENTER_URL: "http://192.168.1.50:3000"
 ```
 
-Este modo solo actualiza el archivo; no inicia, detiene ni reinicia contenedores. El montaje debe haberse creado al arrancar con el Compose actualizado. La detección se hace en cada arranque o actualización explícita, sin procesos permanentes en el anfitrión ni sondeos continuos. En ordenadores con varias redes, la dirección elegida debe pertenecer a una red accesible para los participantes.
+También admite un dominio con HTTPS y su puerto público. La URL configurada tiene prioridad sobre la dirección usada para abrir la página. El QR apunta a su raíz, sin rutas, consultas, fragmentos ni credenciales. Si la URL es inválida o apunta a localhost, no se muestra un QR engañoso. Sin configuración se puede compartir una entrada directa por IP LAN o dominio accesible; entrar por localhost requiere la URL configurada o detectada.
 
-El parámetro `-ExecutionPolicy Bypass` se limita al proceso que ejecuta el script propio; no utiliza `Set-ExecutionPolicy` ni altera una directiva persistente. Si una directiva administrada impide ejecutarlo, respetar esa política y consultar al administrador.
+La detección genera una URL HTTP con el puerto publicado predeterminado `3000`. Si se cambia el puerto publicado o se utiliza HTTPS, configurar la URL completa correspondiente. Con varias interfaces se utiliza la primera según la prioridad del script; para elegir otra, fijar la URL.
+
+Si cambia la IP o la configuración, volver a ejecutar el script de arranque y recargar el centro. Compose puede recrear el contenedor del centro para aplicar su nueva variable; los contenedores de juegos existentes permanecen independientes. No basta con recargar la página, porque la variable se recibe al crear el contenedor.
+
+`-PrepareOnly` en Windows y `--prepare-only` en Linux solo muestran la URL detectada: no escriben archivos, no actualizan el centro ni ejecutan Docker. Se mantienen para consultar la detección sin arrancar servicios. Si no se encuentra IP, se muestra un aviso y el arranque normal permite usar la URL fija de Compose.
+
+El parámetro `-ExecutionPolicy Bypass` se limita al proceso del script propio; no cambia directivas persistentes. Los scripts no instalan herramientas ni alteran la red del anfitrión.
 
 ## Generación y tamaño
 
@@ -52,9 +59,9 @@ La zona del QR mide entre 224 y 360 píxeles CSS según la pantalla. En pantalla
 
 ## Verificación
 
-`tests/connection-url.test.mjs` comprueba localhost, IPv4/IPv6 de loopback, nombres internos, direcciones inválidas, puerto publicado, varias interfaces, cambio de dirección, HTTPS y generación del SVG con su margen.
+`tests/connection-url.test.mjs` cubre la URL configurada, su prioridad, puertos públicos, HTTPS, direcciones inválidas, ausencia de localhost y el SVG con su margen. Las pruebas actualizadas quedan pendientes de ejecución tras este cambio.
 
-`tests/browser/connection.mjs` abre la página como localhost con una red simulada, comprueba que URL y QR son visibles y utiliza el lector independiente `jsQR` sobre los píxeles renderizados. Verifica que el resultado coincide exactamente con el texto del enlace en 1920×1080, 1280×720, 960×540, 800×480, 667×375, 568×320, 390×844 y 320×568. Incluye cambio de IP y ausencia de un QR de localhost cuando falta una dirección válida. Añade un catálogo largo para comprobar que el QR no se mueve al desplazar las tarjetas en escritorio y que en móvil está antes del listado y utiliza scroll normal. El script Linux se ha comprobado en un contenedor Linux con rutas e interfaces simuladas: prioridad de rutas, exclusión de adaptadores virtuales, modo de preparación sin arrancar Docker, red vacía y paso de argumentos a Compose. No se ha probado sobre un anfitrión Linux físico.
+`tests/browser/connection.mjs` abre la página como localhost con una red simulada, comprueba que URL y QR son visibles y utiliza el lector independiente `jsQR` sobre los píxeles renderizados. Verifica que el resultado coincide exactamente con el texto del enlace en 1920×1080, 1280×720, 960×540, 800×480, 667×375, 568×320, 390×844 y 320×568. Incluye cambio de IP y ausencia de un QR de localhost cuando falta una dirección válida. Añade un catálogo largo para comprobar que el QR no se mueve al desplazar las tarjetas en escritorio y que en móvil está antes del listado y utiliza scroll normal. La verificación histórica del script Linux con interfaces simuladas corresponde al transporte anterior mediante archivo; el nuevo paso de la URL por entorno queda pendiente de ejecución, al igual que las pruebas de navegador actualizadas. No se ha probado sobre un anfitrión Linux físico.
 
 ```powershell
 docker build -f tests/browser/Dockerfile -t gamecenter-browser-tests:local .

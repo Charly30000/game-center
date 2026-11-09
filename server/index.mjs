@@ -11,6 +11,7 @@ const server = http.createServer(async (request, response) => {
     const url = new URL(request.url, 'http://gamecenter');
     const path = decodeURIComponent(url.pathname);
     if (path === '/health') return json(response, 200, { ok: true });
+    if (request.method === 'GET' && path === '/api/connection') return json(response, 200, { publicUrl: process.env.GAMECENTER_URL || '' });
     if (request.method === 'GET' && path === '/api/games') return json(response, 200, games.map(({ command, port, ...game }) => game));
     const launch = path.match(/^\/api\/games\/([a-z-]+)\/launch$/);
     if (request.method === 'POST' && launch) {

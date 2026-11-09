@@ -5,7 +5,7 @@ export async function mountConnection() {
   const code=document.querySelector('#join-code'),link=document.querySelector('#join-url'),status=document.querySelector('#join-status');
   let network={};
   try {
-    const response=await fetch('/connection/host-network.json',{cache:'no-store'});
+    const response=await fetch('/api/connection',{cache:'no-store'});
     if (response.ok) network=await response.json();
   } catch { /* Una entrada directa por la dirección LAN también permite compartir. */ }
   const url=connectionUrl(location.href,network);
